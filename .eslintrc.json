@@ -1,7 +1,13 @@
 {
-  "extends": ["next/core-web-vitals", "airbnb-base"],
+  "extends": ["next/core-web-vitals", "prettier", "airbnb-base" ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "comma-dangle": ["error", "only-multiline"],
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "import/extensions": "off",
+    "no-unused-vars": "off",
+    "operator-linebreak": ["error", "after"],
+    "@typescript-eslint/no-unused-vars": "error"
   }
 }
