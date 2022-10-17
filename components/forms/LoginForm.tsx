@@ -1,12 +1,8 @@
 import { Formik, Form, Field } from 'formik';
 import styles from './styles/Forms.module.css';
 
-interface MyFormValues {
-  firstName: string;
-  passWord: string;
-}
 const LoginForm = () => {
-  const initialValues: MyFormValues = { firstName: '', passWord: '' };
+  const initialValues = { username: '', pwd: '' };
   return (
     <div className={styles.container}>
       <Formik
@@ -17,20 +13,15 @@ const LoginForm = () => {
         }}
       >
         <Form className={styles.form}>
-          <label htmlFor="firstName">First Name</label>
+          <label htmlFor="username">Username</label>
           <Field
             type="text"
-            id="firstName"
-            name="firstName"
-            placeholder="First Name"
+            id="username"
+            name="username"
+            placeholder="Username"
           />
-          <label htmlFor="passWord">Password</label>
-          <Field
-            type="password"
-            id="passWord"
-            name="passWord"
-            placeholder="Password"
-          />
+          <label htmlFor="pwd">Password</label>
+          <Field type="password" id="pwd" name="pwd" placeholder="Password" />
           <button type="submit">Login</button>
         </Form>
       </Formik>
