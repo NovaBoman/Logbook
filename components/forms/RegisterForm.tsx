@@ -1,14 +1,27 @@
 import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import styles from './styles/Forms.module.css';
 
-interface MyFormValues {
-  firstName: string;
-  email: string;
-  pwd: string;
-  confirmPwd: string;
-}
+const RegisterSchema = Yup.object().shape({
+  username: Yup.string()
+    .min(5, 'Username must be at least 5 characters')
+    .max(10, 'Username cannot be more than 10 characters')
+    .matches(/^[a-zA-Z0-9]+$/, 'Cannot contain special characters or spaces')
+    .required('Required'),
+  email: Yup.string().email('Invalid email').required('Required'),
+  pwd: Yup.string()
+    .min(8, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required')
+    .matches(/^[a-zA-Z0-9]+$/, 'Cannot contain special characters or spaces'),
+  confirmPwd: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+});
+
 const RegisterForm = () => {
-  const initialValues: MyFormValues = {
+  const initialValues = {
     firstName: '',
     email: '',
     pwd: '',
@@ -18,6 +31,7 @@ const RegisterForm = () => {
     <div className={styles.container}>
       <Formik
         initialValues={initialValues}
+        validationSchema={RegisterSchema}
         onSubmit={(values, actions) => {
           console.log(values);
           actions.setSubmitting(false);
