@@ -1,0 +1,19 @@
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--light-text-color);
+  background-color: var(--main-color);
+  font-size: 1.3rem;
+}
+
+.logo {
+  width: 80vw;
+  max-width: 350px;
+}
+
+.underline {
+  text-decoration: underline;
+}
