@@ -18,7 +18,7 @@ const RegisterSchema = Yup.object().shape({
 
 const RegisterForm = () => {
   const initialValues = {
-    firstName: '',
+    username: '',
     email: '',
     pwd: '',
   };
@@ -33,14 +33,14 @@ const RegisterForm = () => {
         }}
       >
         <Form className={styles.form}>
-          <label htmlFor="firstName">Username</label>
+          <label htmlFor="username">Username</label>
           <Field
             type="text"
-            id="firstName"
-            name="firstName"
+            id="username"
+            name="username"
             placeholder="Username"
           />
-          <label htmlFor="firstName">Email</label>
+          <label htmlFor="email">Email</label>
           <Field
             type="email"
             id="email"
