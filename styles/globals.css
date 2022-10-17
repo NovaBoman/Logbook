@@ -1,9 +1,25 @@
+/* Variables */
+
+:root {
+  --main-color: #1c4e69;
+  --secondary-color: #d0f4ea;
+  --contrast-color: #ff8a5b;
+  --dark-text-color: #444444;
+  --light-text-color: #fffcf5;
+}
+
 html,
 body {
+  height: 100vh;
   padding: 0;
   margin: 0;
+  font-size: 10px;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+#__next {
+  height: inherit;
 }
 
 a {
