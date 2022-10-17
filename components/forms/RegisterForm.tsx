@@ -14,10 +14,6 @@ const RegisterSchema = Yup.object().shape({
     .max(50, 'Too Long!')
     .required('Required')
     .matches(/^[a-zA-Z0-9]+$/, 'Cannot contain special characters or spaces'),
-  confirmPwd: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
 });
 
 const RegisterForm = () => {
@@ -25,7 +21,6 @@ const RegisterForm = () => {
     firstName: '',
     email: '',
     pwd: '',
-    confirmPwd: '',
   };
   return (
     <div className={styles.container}>
@@ -54,13 +49,6 @@ const RegisterForm = () => {
           />
           <label htmlFor="pwd">Password</label>
           <Field type="password" id="pwd" name="pwd" placeholder="Password" />
-          <label htmlFor="pwd">Confirm Password</label>
-          <Field
-            type="password"
-            id="confirm"
-            name="confirmPwd"
-            placeholder="Confirm Password"
-          />
           <button type="submit">Register</button>
         </Form>
       </Formik>
