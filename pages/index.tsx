@@ -62,7 +62,7 @@ const Home: NextPage = () => {
               <h1>Login</h1>
               <LoginForm />
               <p>
-                No Account?{' '}
+                No account?{' '}
                 <span
                   className={styles.underline}
                   onClick={() => {
