@@ -9,7 +9,7 @@ const RegisterSchema = Yup.object().shape({
     .matches(/^[a-zA-Z0-9]+$/, 'Cannot contain special characters or spaces')
     .required('Required'),
   email: Yup.string().email('Please enter a valid email').required('Required'),
-  pwd: Yup.string()
+  password: Yup.string()
     .min(8, 'Password must be at least 8 characters')
     .max(20, 'Password cannot be more than 20 characters')
     .required('Required')
@@ -20,7 +20,7 @@ const RegisterForm = () => {
   const initialValues = {
     username: '',
     email: '',
-    pwd: '',
+    password: '',
   };
   return (
     <div className={styles.container}>
@@ -50,9 +50,14 @@ const RegisterForm = () => {
               placeholder="user@example.com"
             />
             {errors.email && touched.email && <p>{errors.email}</p>}
-            <label htmlFor="pwd">Password</label>
-            <Field type="password" id="pwd" name="pwd" placeholder="Password" />
-            {errors.pwd && touched.pwd && <p>{errors.pwd}</p>}
+            <label htmlFor="password">Password</label>
+            <Field
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+            />
+            {errors.password && touched.password && <p>{errors.password}</p>}
             <button type="submit">Register</button>
           </Form>
         )}
