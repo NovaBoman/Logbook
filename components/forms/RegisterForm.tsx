@@ -1,4 +1,4 @@
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styles from './styles/Forms.module.css';
 
@@ -32,7 +32,7 @@ const RegisterForm = () => {
           actions.setSubmitting(false);
         }}
       >
-        {({ errors, touched }) => (
+        {() => (
           <Form className={styles.form}>
             <label htmlFor="username">Username</label>
             <Field
@@ -41,7 +41,7 @@ const RegisterForm = () => {
               name="username"
               placeholder="Username"
             />
-            {errors.username && touched.username && <p>{errors.username}</p>}
+            <ErrorMessage name="username" />
             <label htmlFor="email">Email</label>
             <Field
               type="email"
@@ -49,7 +49,7 @@ const RegisterForm = () => {
               name="email"
               placeholder="user@example.com"
             />
-            {errors.email && touched.email && <p>{errors.email}</p>}
+            <ErrorMessage name="email" />
             <label htmlFor="password">Password</label>
             <Field
               type="password"
@@ -57,7 +57,7 @@ const RegisterForm = () => {
               name="password"
               placeholder="Password"
             />
-            {errors.password && touched.password && <p>{errors.password}</p>}
+            <ErrorMessage name="password" />
             <button type="submit">Register</button>
           </Form>
         )}
