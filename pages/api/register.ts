@@ -5,11 +5,11 @@ import UserModel, { IUser } from '../../models/UserModel';
 import ErrorResponse from '../../utils/error.response';
 import dbConnect from '../../utils/mongoose.connect';
 
-const register = async (user: IUser): Promise<object | void> => {
+const register = async (user: IUser): Promise<object> => {
   try {
     await dbConnect();
-    await UserModel.create(user);
-    return;
+    const newUser = await UserModel.create(user);
+    return newUser;
   } catch (e: any) {
     // "unique" in Mongoose Schema is not a validator, it creates a unique index in MongoDB
     // Trying to insert duplicate data on fields with unique index
