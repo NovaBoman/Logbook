@@ -1,5 +1,8 @@
-import { Formik, Form, Field } from 'formik';
+/* eslint-disable object-curly-newline */
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+
 import * as Yup from 'yup';
+import { IUser } from '../../models/UserModel';
 import styles from './styles/Forms.module.css';
 
 const RegisterSchema = Yup.object().shape({
@@ -9,30 +12,40 @@ const RegisterSchema = Yup.object().shape({
     .matches(/^[a-zA-Z0-9]+$/, 'Cannot contain special characters or spaces')
     .required('Required'),
   email: Yup.string().email('Please enter a valid email').required('Required'),
-  pwd: Yup.string()
+  password: Yup.string()
     .min(8, 'Password must be at least 8 characters')
     .max(20, 'Password cannot be more than 20 characters')
     .required('Required')
     .matches(/^[a-zA-Z0-9]+$/, 'Cannot contain special characters or spaces'),
 });
 
+const register = async (values: IUser) => {
+  await fetch('/api/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(values),
+  });
+};
+
 const RegisterForm = () => {
   const initialValues = {
     username: '',
     email: '',
-    pwd: '',
+    password: '',
   };
+
   return (
     <div className={styles.container}>
       <Formik
         initialValues={initialValues}
         validationSchema={RegisterSchema}
         onSubmit={(values, actions) => {
-          console.log(values);
+          register(values);
+          actions.resetForm();
           actions.setSubmitting(false);
         }}
       >
-        {({ errors, touched }) => (
+        {() => (
           <Form className={styles.form}>
             <label htmlFor="username">Username</label>
             <Field
@@ -41,7 +54,7 @@ const RegisterForm = () => {
               name="username"
               placeholder="Username"
             />
-            {errors.username && touched.username && <p>{errors.username}</p>}
+            <ErrorMessage name="username" />
             <label htmlFor="email">Email</label>
             <Field
               type="email"
@@ -49,10 +62,15 @@ const RegisterForm = () => {
               name="email"
               placeholder="user@example.com"
             />
-            {errors.email && touched.email && <p>{errors.email}</p>}
-            <label htmlFor="pwd">Password</label>
-            <Field type="password" id="pwd" name="pwd" placeholder="Password" />
-            {errors.pwd && touched.pwd && <p>{errors.pwd}</p>}
+            <ErrorMessage name="email" />
+            <label htmlFor="password">Password</label>
+            <Field
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+            />
+            <ErrorMessage name="password" />
             <button type="submit">Register</button>
           </Form>
         )}
