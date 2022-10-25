@@ -4,13 +4,7 @@ import mongoose from 'mongoose';
 if (!process.env.MONGODB_URI) {
   throw new Error('Please add your Mongo URI to .env.local');
 }
-if (!process.env.DEV_DB_URI) {
-  throw new Error('Invalid environment variable: "DEV_DB_URI"');
-}
-const uri =
-  process.env.NODE_ENV === 'development'
-    ? process.env.DEV_DB_URI
-    : process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI;
 
 /**
  * Global is used here to maintain a cached connection across hot reloads
