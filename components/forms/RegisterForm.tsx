@@ -1,5 +1,6 @@
-// eslint-disable-next-line object-curly-newline
+/* eslint-disable object-curly-newline */
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+
 import * as Yup from 'yup';
 import { IUser } from '../../models/UserModel';
 import styles from './styles/Forms.module.css';
@@ -19,7 +20,7 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const register = async (values: IUser) => {
-  await fetch('http://localhost:3000/api/register', {
+  await fetch('/api/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(values),
