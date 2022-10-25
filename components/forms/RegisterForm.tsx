@@ -1,5 +1,7 @@
+// eslint-disable-next-line object-curly-newline
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { IUser } from '../../models/UserModel';
 import styles from './styles/Forms.module.css';
 
 const RegisterSchema = Yup.object().shape({
@@ -16,19 +18,29 @@ const RegisterSchema = Yup.object().shape({
     .matches(/^[a-zA-Z0-9]+$/, 'Cannot contain special characters or spaces'),
 });
 
+const register = async (values: IUser) => {
+  await fetch('http://localhost:3000/api/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(values),
+  });
+};
+
 const RegisterForm = () => {
   const initialValues = {
     username: '',
     email: '',
     password: '',
   };
+
   return (
     <div className={styles.container}>
       <Formik
         initialValues={initialValues}
         validationSchema={RegisterSchema}
         onSubmit={(values, actions) => {
-          console.log(values);
+          register(values);
+          actions.resetForm();
           actions.setSubmitting(false);
         }}
       >
