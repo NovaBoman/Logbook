@@ -1,12 +1,22 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoginForm from '../components/forms/LoginForm';
 import RegisterForm from '../components/forms/RegisterForm';
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
   const [isRegistered, setIsRegistered] = useState(true);
+  const [success, setSuccess] = useState(false);
+
+  const setStatesToFalse = () => {
+    setSuccess(false);
+    setIsRegistered(false);
+  };
+
+  useEffect(() => {
+    if (success) setIsRegistered(true);
+  }, [success]);
 
   return (
     <div className="container">
@@ -60,15 +70,12 @@ const Home: NextPage = () => {
           {isRegistered ? (
             <>
               <h1>Login</h1>
+              {success && <p>Your account has been created.</p>}
+
               <LoginForm />
               <p>
                 No account?{' '}
-                <span
-                  className={styles.underline}
-                  onClick={() => {
-                    setIsRegistered(false);
-                  }}
-                >
+                <span className={styles.underline} onClick={setStatesToFalse}>
                   Register
                 </span>
               </p>
@@ -76,14 +83,12 @@ const Home: NextPage = () => {
           ) : (
             <>
               <h1>Register</h1>
-              <RegisterForm />
+              <RegisterForm setSuccess={setSuccess} />
               <p>
                 Have an account?{' '}
                 <span
                   className={styles.underline}
-                  onClick={() => {
-                    setIsRegistered(true);
-                  }}
+                  onClick={() => setIsRegistered(true)}
                 >
                   Login
                 </span>
