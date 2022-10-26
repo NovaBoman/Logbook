@@ -6,6 +6,7 @@ export interface IUser {
   username: string;
   email: string;
   password: string;
+  roles?: string[];
 }
 
 const UserSchema = new Schema<IUser>({
@@ -34,6 +35,10 @@ const UserSchema = new Schema<IUser>({
     type: String,
     minlength: [8, 'Password must be between 8 and 20 characters'],
     required: [true, 'Password is required'],
+  },
+  roles: {
+    type: [String],
+    default: ['user'],
   },
 });
 
