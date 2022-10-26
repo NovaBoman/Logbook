@@ -32,6 +32,10 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
+      const data = req.body;
+      if (data.roles) {
+        return res.status(403).json('Forbidden action');
+      }
       await register({ ...req.body });
       return res.status(200).json({ message: 'User registered' });
     } catch (e: any) {
