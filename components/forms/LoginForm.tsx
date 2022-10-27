@@ -5,6 +5,7 @@
 /* eslint-disable indent */
 /* eslint-disable object-curly-newline */
 import { Formik, Form, Field } from 'formik';
+import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction } from 'react';
 import styles from './styles/Forms.module.css';
 
@@ -32,6 +33,7 @@ const submitLogin = async (values: object) => {
 };
 
 const LoginForm: React.FC<LoginFormProps> = ({ setError }) => {
+  const router = useRouter();
   const initialValues = { username: '', password: '' };
 
   const handleSubmitLogin = async (values: object) => {
@@ -41,6 +43,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setError }) => {
     }
     if (typeof result === 'boolean') {
       setError('');
+      router.replace('/dashboard');
     }
   };
 
