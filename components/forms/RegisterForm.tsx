@@ -6,30 +6,15 @@
 /* eslint-disable object-curly-newline */
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import React, { Dispatch, SetStateAction } from 'react';
-import * as Yup from 'yup';
 import { IUser } from '../../models/UserModel';
 import styles from './styles/Forms.module.css';
+import RegisterSchema from './validation/register.validation';
 
 // Form props
 type RegisterFormProps = {
   setSuccess: Dispatch<SetStateAction<boolean>>;
   setError: Dispatch<SetStateAction<string>>;
 };
-
-// Yup form validation schema
-const RegisterSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(5, 'Username must be at least 5 characters')
-    .max(10, 'Username cannot be more than 10 characters')
-    .matches(/^[a-zA-Z0-9]+$/, 'Cannot contain special characters or spaces')
-    .required('Required'),
-  email: Yup.string().email('Please enter a valid email').required('Required'),
-  password: Yup.string()
-    .min(8, 'Password must be at least 8 characters')
-    .max(20, 'Password cannot be more than 20 characters')
-    .required('Required')
-    .matches(/^[a-zA-Z0-9]+$/, 'Cannot contain special characters or spaces'),
-});
 
 const submitRegister = async (values: IUser) => {
   try {
