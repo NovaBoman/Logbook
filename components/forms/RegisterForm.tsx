@@ -23,7 +23,7 @@ const submitRegister = async (values: IUser) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
     }).then((res) =>
-      res.status === 200
+      res.status === 201
         ? true
         : res.status === 409
         ? res.json()
