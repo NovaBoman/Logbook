@@ -75,7 +75,7 @@ const Home: NextPage = () => {
               {success && <p>Your account has been created.</p>}
               {error && <p>{error}</p>}
 
-              <LoginForm setError={setError} />
+              <LoginForm setSuccess={setSuccess} setError={setError} />
               <p>
                 No account?{' '}
                 <span className={styles.underline} onClick={setStatesToFalse}>

@@ -11,6 +11,7 @@ import styles from './styles/Forms.module.css';
 
 type LoginFormProps = {
   setError: Dispatch<SetStateAction<string>>;
+  setSuccess: Dispatch<SetStateAction<boolean>>;
 };
 
 const submitLogin = async (values: object) => {
@@ -32,12 +33,13 @@ const submitLogin = async (values: object) => {
   }
 };
 
-const LoginForm: React.FC<LoginFormProps> = ({ setError }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ setError, setSuccess }) => {
   const router = useRouter();
   const initialValues = { username: '', password: '' };
 
   const handleSubmitLogin = async (values: object) => {
     const result = await submitLogin(values);
+    setSuccess(false);
     if (typeof result === 'string') {
       setError(result);
     }
