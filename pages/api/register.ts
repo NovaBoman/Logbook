@@ -37,10 +37,10 @@ export default async function handler(
         return res.status(403).json('Forbidden action');
       }
       await register({ ...req.body });
-      return res.status(200).json({ message: 'User registered' });
+      return res.status(200).json('User registered');
     } catch (e: any) {
       return e.statusCode
-        ? res.status(e.statusCode).json({ error: e.message })
+        ? res.status(e.statusCode).json(e.message)
         : res.status(500).json({
             error: e.toString(),
           });
