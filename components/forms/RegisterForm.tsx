@@ -18,7 +18,7 @@ type RegisterFormProps = {
 
 const submitRegister = async (values: IUser) => {
   try {
-    const result = await fetch('/api/register', {
+    const result = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),

@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { NextApiRequest, NextApiResponse } from 'next';
+import bcrypt from 'bcrypt';
 import UserModel from '../models/UserModel';
 import dbConnect from '../utils/mongoose.connect';
 
@@ -30,5 +31,27 @@ export const register = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(409).json(message);
     }
     return res.status(500).json("Couldn't create user");
+  }
+};
+
+export const login = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json('Request body must contain username and password');
+  }
+  try {
+    const user = await UserModel.findOne({ username });
+    if (!user) {
+      return res.status(404).json('User not found');
+    }
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(401).json('Invalid password');
+    }
+    return res.status(200).json('Logged in');
+  } catch (e: any) {
+    return res.status(500).json('Could not sign in');
   }
 };
