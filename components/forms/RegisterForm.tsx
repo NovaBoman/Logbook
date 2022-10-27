@@ -1,3 +1,8 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable no-confusing-arrow */
+/* eslint-disable indent */
 /* eslint-disable object-curly-newline */
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import React, { Dispatch, SetStateAction } from 'react';
@@ -8,6 +13,7 @@ import styles from './styles/Forms.module.css';
 // Form props
 type RegisterFormProps = {
   setSuccess: Dispatch<SetStateAction<boolean>>;
+  setError: Dispatch<SetStateAction<string>>;
 };
 
 // Yup form validation schema
@@ -26,19 +32,45 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const submitRegister = async (values: IUser) => {
-  const result = await fetch('/api/register', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(values),
-  });
-  return result.status === 200;
+  try {
+    const result = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values),
+    }).then((res) =>
+      res.status === 200
+        ? true
+        : res.status === 409
+        ? res.json()
+        : 'Could not create account'
+    );
+    return result;
+  } catch (e: any) {
+    return console.error(e);
+  }
 };
 
-const RegisterForm: React.FC<RegisterFormProps> = ({ setSuccess }) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({
+  setSuccess,
+  setError,
+}) => {
   const initialValues = {
     username: '',
     email: '',
     password: '',
+  };
+
+  // Handles the results from the API call to register user
+  const handleSubmitRegister = async (values: IUser) => {
+    const result = await submitRegister(values);
+    if (typeof result === 'string') {
+      setSuccess(false);
+      setError(result);
+    }
+    if (typeof result === 'boolean') {
+      setError('');
+      setSuccess(true);
+    }
   };
 
   return (
@@ -47,8 +79,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ setSuccess }) => {
         initialValues={initialValues}
         validationSchema={RegisterSchema}
         onSubmit={async (values, actions) => {
-          const success = await submitRegister(values);
-          setSuccess(success);
+          handleSubmitRegister(values);
           actions.resetForm();
           actions.setSubmitting(false);
         }}

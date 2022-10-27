@@ -8,6 +8,7 @@ import styles from '../styles/Home.module.css';
 const Home: NextPage = () => {
   const [isRegistered, setIsRegistered] = useState(true);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
 
   const setStatesToFalse = () => {
     setSuccess(false);
@@ -83,7 +84,8 @@ const Home: NextPage = () => {
           ) : (
             <>
               <h1>Register</h1>
-              <RegisterForm setSuccess={setSuccess} />
+              {error && <p>{error}</p>}
+              <RegisterForm setSuccess={setSuccess} setError={setError} />
               <p>
                 Have an account?{' '}
                 <span
