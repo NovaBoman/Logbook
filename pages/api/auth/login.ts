@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { NextApiRequest, NextApiResponse } from 'next';
-import { register } from '../../controllers/auth';
+import { login } from '../../../controllers/auth';
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,7 +8,7 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
-      return await register(req, res);
+      return await login(req, res);
     } catch (e: any) {
       return res.status(500).json("Couldn't process request");
     }
