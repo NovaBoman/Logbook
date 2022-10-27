@@ -42,6 +42,7 @@ export const login = async (req: NextApiRequest, res: NextApiResponse) => {
       .json('Request body must contain username and password');
   }
   try {
+    await dbConnect();
     const user = await UserModel.findOne({ username });
     if (!user) {
       return res.status(404).json('User not found');
