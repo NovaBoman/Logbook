@@ -1,10 +1,34 @@
-.main {
+.grid {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr 10fr 1fr;
+  grid-template-areas:
+    'header header'
+    'nav main'
+    'nav footer';
+}
+
+/* 'composes' property sets grid-area property from /dashboard.grid.css */
+.header {
+  composes: header from '/styles/dashboard.grid.css';
+  background-color: var(--contrast-color);
+}
+
+.nav {
+  composes: nav from '/styles/dashboard.grid.css';
+  background-color: darksalmon;
+}
+
+.main {
+  composes: main from '/styles/dashboard.grid.css';
   color: var(--dark-text-color);
   background-color: var(--light-text-color);
   font-size: 1.3rem;
+}
+
+.footer {
+  composes: footer from '/styles/dashboard.grid.css';
+  background-color: peachpuff;
 }

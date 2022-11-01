@@ -1,0 +1,20 @@
+/*
+ | Grid template areas have to be defined outside css module 
+ | because the module automatically changes the class name. 
+*/
+
+.header {
+  grid-area: header;
+}
+
+.nav {
+  grid-area: nav;
+}
+
+.main {
+  grid-area: main;
+}
+
+.footer {
+  grid-area: footer;
+}
