@@ -3,7 +3,7 @@ import Head from 'next/head';
 import styles from '../styles/Dashboard.module.css';
 
 const Dashboard: NextPage = () => (
-  <div className="container">
+  
     <Head>
       <title>SkyLog</title>
       <meta name="description" content="Logbook for skydivers" />
@@ -13,7 +13,7 @@ const Dashboard: NextPage = () => (
         <h1>Welcome to dashboard!</h1>
       </div>
     </main>
-  </div>
+  
 );
 
 export default Dashboard;
