@@ -9,10 +9,10 @@ const Dashboard: NextPage = () => (
       <meta name="description" content="Logbook for skydivers" />
     </Head>
     <div className={styles.grid}>
-      <header className={styles.header}>Header</header>
-      <nav className={styles.nav}>Nav</nav>
-      <main className={styles.main}>Main</main>
-      <footer className={styles.footer}>Footer</footer>
+      <header className={styles.header}></header>
+      <nav className={styles.nav}></nav>
+      <main className={styles.main}></main>
+      <footer className={styles.footer}></footer>
     </div>
   </>
 );

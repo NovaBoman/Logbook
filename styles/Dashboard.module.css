@@ -13,12 +13,12 @@
 /* 'composes' adds grid-area property from /dashboard.grid.css */
 .header {
   composes: grid_header from '/styles/dashboard.grid.css';
-  background-color: var(--contrast-color);
+  background-color: var(--main-color);
 }
 
 .nav {
   composes: grid_nav from '/styles/dashboard.grid.css';
-  background-color: darksalmon;
+  background-color: var(--secondary-color);
 }
 
 .main {
@@ -30,5 +30,5 @@
 
 .footer {
   composes: grid_footer from '/styles/dashboard.grid.css';
-  background-color: peachpuff;
+  background-color: var(--main-color);
 }
