@@ -21,7 +21,7 @@ const Home: NextPage = () => {
   }, [success]);
 
   return (
-    <div className="container">
+    <>
       <Head>
         <title>SkyLog</title>
         <meta name="description" content="Logbook for skydivers" />
@@ -101,7 +101,7 @@ const Home: NextPage = () => {
           )}
         </div>
       </main>
-    </div>
+    </>
   );
 };
 
