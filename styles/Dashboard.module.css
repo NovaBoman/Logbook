@@ -10,25 +10,25 @@
     'nav footer';
 }
 
-/* 'composes' property sets grid-area property from /dashboard.grid.css */
+/* 'composes' adds grid-area property from /dashboard.grid.css */
 .header {
-  composes: header from '/styles/dashboard.grid.css';
+  composes: grid_header from '/styles/dashboard.grid.css';
   background-color: var(--contrast-color);
 }
 
 .nav {
-  composes: nav from '/styles/dashboard.grid.css';
+  composes: grid_nav from '/styles/dashboard.grid.css';
   background-color: darksalmon;
 }
 
 .main {
-  composes: main from '/styles/dashboard.grid.css';
+  composes: grid_main from '/styles/dashboard.grid.css';
   color: var(--dark-text-color);
   background-color: var(--light-text-color);
   font-size: 1.3rem;
 }
 
 .footer {
-  composes: footer from '/styles/dashboard.grid.css';
+  composes: grid_footer from '/styles/dashboard.grid.css';
   background-color: peachpuff;
 }
