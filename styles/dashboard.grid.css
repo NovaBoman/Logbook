@@ -3,18 +3,18 @@
  | because the module automatically changes the class name. 
 */
 
-.grid_header {
+.gridHeader {
   grid-area: header;
 }
 
-.grid_nav {
+.gridNav {
   grid-area: nav;
 }
 
-.grid_main {
+.gridMain {
   grid-area: main;
 }
 
-.grid_footer {
+.gridFooter {
   grid-area: footer;
 }
