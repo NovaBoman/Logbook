@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcrypt';
 import UserModel from '../models/UserModel';
