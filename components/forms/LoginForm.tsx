@@ -1,9 +1,5 @@
-/* eslint-disable function-paren-newline */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable no-confusing-arrow */
+/* eslint-disable arrow-body-style */
 /* eslint-disable indent */
-/* eslint-disable object-curly-newline */
 import { Formik, Form, Field } from 'formik';
 import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction } from 'react';
@@ -20,13 +16,13 @@ const submitLogin = async (values: object) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
-    }).then((res) =>
-      res.status === 200
+    }).then((res) => {
+      return res.status === 200
         ? true
         : res.status === 404 || res.status === 401 || res.status === 400
         ? res.json()
-        : 'Login failed'
-    );
+        : 'Login failed';
+    });
     return result;
   } catch (e: any) {
     return console.error(e);
