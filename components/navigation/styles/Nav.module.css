@@ -1,0 +1,17 @@
+.mainNav {
+  min-width: max-content;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 3rem;
+  color: var(--dark-text-color);
+  font-size: 1.3rem;
+}
+
+.mainNav h4 {
+  margin-top: auto;
+}
+
+.mainNav p {
+  line-height: 0;
+}
+
