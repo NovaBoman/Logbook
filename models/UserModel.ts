@@ -6,7 +6,7 @@ export interface IUser {
   username: string;
   email: string;
   password: string;
-  roles?: string[];
+  roles: string[];
 }
 
 const UserSchema = new Schema<IUser>({

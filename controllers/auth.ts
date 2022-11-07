@@ -4,9 +4,6 @@ import UserModel from '../models/UserModel';
 import dbConnect from '../utils/mongoose.connect';
 
 export const register = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.body.roles) {
-    return res.status(403).json('Forbidden action');
-  }
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
     return res
@@ -15,7 +12,7 @@ export const register = async (req: NextApiRequest, res: NextApiResponse) => {
   }
   try {
     await dbConnect();
-    await UserModel.create({ ...req.body });
+    await UserModel.create({ ...req.body, roles: ['user'] });
     return res.status(201).json('User created');
   } catch (e: any) {
     // "unique" in Mongoose Schema is not a validator, it creates a unique index in MongoDB
