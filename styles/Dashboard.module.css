@@ -32,3 +32,17 @@
   composes: gridFooter from '/styles/dashboard.grid.css';
   background-color: var(--main-color);
 }
+
+
+@media (orientation: portrait) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 10fr 1fr;
+    grid-template-areas:
+    'header'
+    'nav'
+    'main'
+    'footer';
+  }
+}
+
