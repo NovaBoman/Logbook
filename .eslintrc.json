@@ -4,6 +4,8 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "rules": {
+    "no-nested-ternary": "off",
+    "import/prefer-default-export": "off",
     "comma-dangle": ["error", "only-multiline"],
     "linebreak-style": "off",
     "import/extensions": "off",

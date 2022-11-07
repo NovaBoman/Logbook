@@ -12,23 +12,37 @@
 
 /* 'composes' adds grid-area property from /dashboard.grid.css */
 .header {
-  composes: grid_header from '/styles/dashboard.grid.css';
+  composes: gridHeader from '/styles/dashboard.grid.css';
   background-color: var(--main-color);
 }
 
 .nav {
-  composes: grid_nav from '/styles/dashboard.grid.css';
+  composes: gridNav from '/styles/dashboard.grid.css';
   background-color: var(--secondary-color);
 }
 
 .main {
-  composes: grid_main from '/styles/dashboard.grid.css';
+  composes: gridMain from '/styles/dashboard.grid.css';
   color: var(--dark-text-color);
   background-color: var(--light-text-color);
   font-size: 1.3rem;
 }
 
 .footer {
-  composes: grid_footer from '/styles/dashboard.grid.css';
+  composes: gridFooter from '/styles/dashboard.grid.css';
   background-color: var(--main-color);
 }
+
+
+@media (orientation: portrait) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto 6fr 0.5fr;
+    grid-template-areas:
+    'header'
+    'nav'
+    'main'
+    'footer';
+  }
+}
+
