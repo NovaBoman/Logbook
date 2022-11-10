@@ -2,14 +2,15 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable prefer-arrow-callback */
 // eslint-disable-next-line object-curly-newline
-import { models, model, Schema } from 'mongoose';
+import { models, model, Schema, ObjectId } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 export interface IUser {
+  _id?: ObjectId;
   username: string;
   email: string;
   password: string;
-  roles: string[];
+  roles?: string[];
 }
 
 export interface IUserFields {
