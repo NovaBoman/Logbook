@@ -18,7 +18,7 @@ type RegisterFormProps = {
 
 const submitRegister = async (values: IUser) => {
   try {
-    const result = await fetch('/api/auth/register', {
+    return await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
@@ -29,7 +29,6 @@ const submitRegister = async (values: IUser) => {
         ? res.json()
         : 'Could not create account'
     );
-    return result;
   } catch (e: any) {
     return console.error(e);
   }

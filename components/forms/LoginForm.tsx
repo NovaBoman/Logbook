@@ -12,7 +12,7 @@ type LoginFormProps = {
 
 const submitLogin = async (values: object) => {
   try {
-    const result = await fetch('/api/auth/login', {
+    return await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
@@ -23,7 +23,6 @@ const submitLogin = async (values: object) => {
         ? res.json()
         : 'Login failed';
     });
-    return result;
   } catch (e: any) {
     return console.error(e);
   }
