@@ -19,14 +19,14 @@ const Header: React.FC<IHeader> = ({ heading, className }) => (
         <path
           d="M5 5.22641L28.434 33"
           stroke={'#FFFCF5'}
-          stroke-width="10"
-          stroke-linecap="round"
+          strokeWidth="10"
+          strokeLinecap="round"
         />
         <path
           d="M51 5.22641L28.434 33"
           stroke="#FFFCF5"
-          stroke-width="10"
-          stroke-linecap="round"
+          strokeWidth="10"
+          strokeLinecap="round"
         />
       </svg>
 
