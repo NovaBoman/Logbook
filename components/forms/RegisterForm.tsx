@@ -42,6 +42,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
     username: '',
     email: '',
     password: '',
+    roles: [],
   };
 
   // Handles the results from the API call to register user

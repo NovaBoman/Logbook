@@ -10,7 +10,7 @@ export interface IUser {
   username: string;
   email: string;
   password: string;
-  roles?: string[];
+  roles: string[];
 }
 
 export interface IUserFields {
