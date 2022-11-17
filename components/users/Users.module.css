@@ -1,0 +1,10 @@
+.userlist { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.message {
+    font-weight: bold;
+    font-size: 1.6rem;
+}
