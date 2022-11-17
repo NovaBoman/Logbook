@@ -1,48 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import { IUser } from '../../models/UserModel';
 import { BASE_URL } from '../../utils/constants';
+import styles from './Users.module.css';
 
 const UserList: React.FC = () => {
-  const [users, setUsers] = useState<Array<IUser>>([]); // Array of User documents from database
-  const [isLoading, setIsLoading] = useState(true); // Use to display loading message or users
-  const [error, setError] = useState('');
+  const [users, setUsers] = useState<Array<IUser>>([]);
+  const [message, setMessage] = useState<string | null>('Loading users...');
 
   useEffect(() => {
     // Define function to call user endpoint
     const getUsers = async () => {
       try {
         await fetch(`${BASE_URL}/api/users`)
-          .then((response) => response.json())
-          .then((json) => setUsers(json));
-      } catch (e) {
-        setError('No users found');
+          .then((res) => res.json())
+          .then((userData) => {
+            // If the collection is empty:
+            if (userData.length === 0) {
+              setMessage('No users found');
+            }
+            // If collection is not empty:
+            return setUsers(userData);
+          });
+      } catch (e: any) {
+        setMessage('Could not load users from database');
       }
     };
-    // Call function
+
     getUsers();
+    setMessage(null);
   }, []);
 
-  //   Set isLoading to false when users fetch is complete
-  useEffect(() => setIsLoading(false), [users]);
-
-  return (
-    // If isLoading show loading message
-    // If not loading show error message or user list
-    <>
-      {isLoading === true ? (
-        <div>Loading...</div>
-      ) : (
-        <div>
-          {error && users.length === 0 && <p>{error}</p>}
-          {users.map((user) => (
-            <div key={user.username}>
-              <p>{user.username}</p>
-            </div>
-          ))}
-          <div></div>
+  // Display message on loading or error
+  if (message) {
+    return (
+      <div className={styles.userlist}>
+        <div className={styles.message}>
+          <p>{message}</p>
         </div>
-      )}
-    </>
+      </div>
+    );
+  }
+
+  // Otherwise return list of users
+  return (
+    <div className={styles.userlist}>
+      {users &&
+        users.map((user) => (
+          <div key={user.username} className={styles.userListItem}>
+            <p>{user.username}</p>
+          </div>
+        ))}
+    </div>
   );
 };
 
