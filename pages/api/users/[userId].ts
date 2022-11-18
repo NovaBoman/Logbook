@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { updateUserById } from '../../../controllers/users';
+import { updateUserById } from '../../../services/user.service';
 
 export default async function handler(
   req: NextApiRequest,

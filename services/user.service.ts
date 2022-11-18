@@ -33,3 +33,11 @@ export const updateUserById = async (
     return res.status(500).json('Could not update user');
   }
 };
+
+export const deleteUser = async (res: NextApiResponse) => {
+  try {
+    return res.status(204).json('User deleted');
+  } catch (e: any) {
+    return res.status(500).json(e);
+  }
+};
