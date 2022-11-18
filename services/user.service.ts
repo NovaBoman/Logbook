@@ -34,9 +34,11 @@ export const updateUserById = async (
   }
 };
 
-export const deleteUser = async (res: NextApiResponse) => {
+export const deleteUser = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    return res.status(204).json('User deleted');
+    await dbConnect();
+    await UserModel.findByIdAndDelete(req.query.userId);
+    return res.status(204).end();
   } catch (e: any) {
     return res.status(500).json(e);
   }

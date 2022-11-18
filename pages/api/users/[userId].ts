@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { updateUserById } from '../../../services/user.service';
+import { deleteUser, updateUserById } from '../../../services/user.service';
 
 export default async function handler(
   req: NextApiRequest,
@@ -23,7 +23,11 @@ export default async function handler(
   }
   // Delete user by Id
   if (req.method === 'DELETE') {
-    return res.status(200).json('DELETE');
+    try {
+      return await deleteUser(req, res);
+    } catch (e: any) {
+      return res.status(500).json("Couldn't process request");
+    }
   }
   return res.status(400).json('Request method must be PATCH');
 }
