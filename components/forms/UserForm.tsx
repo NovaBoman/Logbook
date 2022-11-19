@@ -3,45 +3,31 @@
 /* eslint-disable indent */
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import React from 'react';
-import { ObjectId } from 'mongoose';
 import { IUser } from '../../models/UserModel';
-import { BASE_URL } from '../../utils/constants';
 import UserSchema from './validation/user.validation';
 import styles from './styles/Forms.module.css';
+import { submitEditUser, submitRegisterUser } from './helpers/form.helpers';
 
 type UserFormProps = {
-  user: IUser;
+  user?: IUser;
+  type: 'edit' | 'register';
 };
 
-const submitEditUser = async (userId: ObjectId | undefined, values: object) => {
-  try {
-    return await fetch(`${BASE_URL}/api/users/${userId}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values),
-    }).then((res) => {
-      return res.status === 201
-        ? true
-        : res.status === 404
-        ? res.json()
-        : "Couldn't update user";
-    });
-    // return result;
-  } catch (e: any) {
-    return console.error(e);
-  }
-};
-
-const UserForm: React.FC<UserFormProps> = ({ user }) => {
+const UserForm: React.FC<UserFormProps> = ({ user, type }) => {
   const initialValues = {
-    username: user.username,
-    email: user.email,
-    password: user.password,
-    roles: user.roles,
+    username: user?.username,
+    email: user?.email,
+    password: user?.password,
+    roles: user?.roles,
   };
 
-  const handleSubmitEditUser = async (values: object) => {
-    await submitEditUser(user._id, values);
+  const handleSubmit = async (values: IUser | object) => {
+    if (type === 'edit') {
+      await submitEditUser(user?._id, values);
+    }
+    if (type === 'register') {
+      await submitRegisterUser(values as IUser);
+    }
   };
   return (
     <div className={styles.container}>
@@ -49,7 +35,7 @@ const UserForm: React.FC<UserFormProps> = ({ user }) => {
         initialValues={initialValues}
         validationSchema={UserSchema}
         onSubmit={(values, actions) => {
-          handleSubmitEditUser(values);
+          handleSubmit(values);
           actions.setSubmitting(false);
         }}
       >

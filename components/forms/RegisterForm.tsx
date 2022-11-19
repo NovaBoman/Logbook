@@ -1,12 +1,8 @@
-/* eslint-disable function-paren-newline */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable no-confusing-arrow */
-/* eslint-disable indent */
 /* eslint-disable object-curly-newline */
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import React, { Dispatch, SetStateAction } from 'react';
 import { IUser } from '../../models/UserModel';
+import { submitRegisterUser } from './helpers/form.helpers';
 import styles from './styles/Forms.module.css';
 import RegisterSchema from './validation/register.validation';
 
@@ -14,24 +10,6 @@ import RegisterSchema from './validation/register.validation';
 type RegisterFormProps = {
   setSuccess: Dispatch<SetStateAction<boolean>>;
   setError: Dispatch<SetStateAction<string>>;
-};
-
-const submitRegister = async (values: IUser) => {
-  try {
-    return await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values),
-    }).then((res) =>
-      res.status === 201
-        ? true
-        : res.status === 409
-        ? res.json()
-        : 'Could not create account'
-    );
-  } catch (e: any) {
-    return console.error(e);
-  }
 };
 
 const RegisterForm: React.FC<RegisterFormProps> = ({
@@ -47,7 +25,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
   // Handles the results from the API call to register user
   const handleSubmitRegister = async (values: IUser) => {
-    const result = await submitRegister(values);
+    const result = await submitRegisterUser(values);
     if (typeof result === 'string') {
       setSuccess(false);
       setError(result);
