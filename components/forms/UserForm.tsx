@@ -63,15 +63,16 @@ const UserForm: React.FC<UserFormProps> = ({ user }) => {
           <label htmlFor="password">Password</label>
           <Field type="password" name="password" />
           <ErrorMessage name="password" />
-          <p>{initialValues.roles}</p>
-          <label>
-            User
-            <Field type="checkbox" value="user" name="roles" />
-          </label>
-          <label>
-            Admin
-            <Field type="checkbox" value="admin" name="roles" />
-          </label>
+          <div className={styles.checkboxContainer}>
+            <label>
+              User
+              <Field type="checkbox" value="user" name="roles" />
+            </label>
+            <label>
+              Admin
+              <Field type="checkbox" value="admin" name="roles" />
+            </label>
+          </div>
           <button type="submit">Save</button>
         </Form>
       </Formik>

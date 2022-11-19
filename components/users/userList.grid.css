@@ -1,0 +1,22 @@
+
+/*
+ | Grid template areas have to be defined outside css module 
+ | because the module automatically changes the class name. 
+*/
+
+.usernameArea{
+    grid-area: username;
+}
+
+.emailArea{
+    grid-area: email;
+}
+
+.buttonsArea{
+    grid-area: buttons;
+}
+
+.formArea{
+    grid-area: form;
+}
+

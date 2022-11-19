@@ -1,6 +1,7 @@
 .container {
   width: 80vw;
   max-width: 300px;
+  margin: 0 auto;
   color: var(--light-text-color);
 }
 

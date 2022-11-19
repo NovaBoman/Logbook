@@ -1,10 +1,44 @@
-.userlist { 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.grid {
+  margin: 1rem auto;
+  width: 90vw;
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-areas:
+    'username email buttons'
+    'form form form';
+
+  border: 1px solid black;
+}
+
+/* 'composes' adds grid-area property from /userList.grid.css */
+.username {
+  composes: usernameArea from './userList.grid.css';
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.email {
+  composes: emailArea from './userList.grid.css';
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.buttons {
+  composes: buttonsArea from './userList.grid.css';
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.form {
+  composes: formArea from './userList.grid.css';
+}
+
+.edit,
+.delete {
+  border: none;
+  background: none;
 }
 
 .message {
-    font-weight: bold;
-    font-size: 1.6rem;
+  font-weight: bold;
+  font-size: 1.6rem;
 }
