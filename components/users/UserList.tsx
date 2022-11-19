@@ -74,6 +74,7 @@ const UserList: React.FC = () => {
   // Otherwise return list of users
   return (
     <div className={styles.userList}>
+      <h2>List of users</h2>
       {users &&
         users.map((user, index) => (
           <>
@@ -104,11 +105,17 @@ const UserList: React.FC = () => {
                 </button>
               </div>
               <div className={styles.form}>
-                {showEditForm === index && <UserForm user={user}></UserForm>}
+                {showEditForm === index && (
+                  <UserForm type={'edit'} user={user}></UserForm>
+                )}
               </div>
             </div>
           </>
         ))}
+      <div className={styles.createUserFormContainer}>
+        <h2>Create new user</h2>
+        <UserForm type={'register'}></UserForm>
+      </div>
     </div>
   );
 };
