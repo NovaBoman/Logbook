@@ -5,7 +5,7 @@ import dbConnect from '../utils/mongoose.connect';
 export const getAllUsers = async (res: NextApiResponse) => {
   try {
     await dbConnect();
-    const users: IUser[] = await UserModel.find({});
+    const users: IUser[] = await UserModel.find({}).select('-password');
     return res.status(200).json(users);
   } catch (e: any) {
     return res.status(500).json(e);
