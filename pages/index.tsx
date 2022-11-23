@@ -1,5 +1,7 @@
 import type { NextPage } from 'next';
+import { useSession } from 'next-auth/react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import LoginForm from '../components/forms/LoginForm';
 import RegisterForm from '../components/forms/RegisterForm';
@@ -8,6 +10,13 @@ import styles from '../styles/Home.module.css';
 const Home: NextPage = () => {
   const [isRegistered, setIsRegistered] = useState(true);
   const [message, setMessage] = useState('');
+  const session = useSession();
+  const router = useRouter();
+
+  if (session.status === 'authenticated') {
+    router.push('/dashboard');
+    return <></>;
+  }
 
   return (
     <>
