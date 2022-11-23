@@ -1,24 +1,13 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import LoginForm from '../components/forms/LoginForm';
 import RegisterForm from '../components/forms/RegisterForm';
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
   const [isRegistered, setIsRegistered] = useState(true);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
-
-  const setStatesToFalse = () => {
-    setSuccess(false);
-    setIsRegistered(false);
-    setError('');
-  };
-
-  useEffect(() => {
-    if (success) setIsRegistered(true);
-  }, [success]);
+  const [message, setMessage] = useState('');
 
   return (
     <>
@@ -72,13 +61,18 @@ const Home: NextPage = () => {
           {isRegistered ? (
             <>
               <h1>Login</h1>
-              {success && <p>Your account has been created.</p>}
-              {error && <p>{error}</p>}
+              {message && <p>{message}</p>}
 
-              <LoginForm setError={setError} />
+              <LoginForm setMessage={setMessage} />
               <p>
                 No account?{' '}
-                <span className={styles.underline} onClick={setStatesToFalse}>
+                <span
+                  className={styles.underline}
+                  onClick={() => {
+                    setMessage('');
+                    setIsRegistered(false);
+                  }}
+                >
                   Register
                 </span>
               </p>
@@ -86,13 +80,19 @@ const Home: NextPage = () => {
           ) : (
             <>
               <h1>Register</h1>
-              {error && <p>{error}</p>}
-              <RegisterForm setSuccess={setSuccess} setError={setError} />
+              {message && <p>{message}</p>}
+              <RegisterForm
+                setIsRegistered={setIsRegistered}
+                setMessage={setMessage}
+              />
               <p>
                 Have an account?{' '}
                 <span
                   className={styles.underline}
-                  onClick={() => setIsRegistered(true)}
+                  onClick={() => {
+                    setMessage('');
+                    setIsRegistered(true);
+                  }}
                 >
                   Login
                 </span>

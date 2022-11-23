@@ -8,13 +8,13 @@ import RegisterSchema from './validation/register.validation';
 
 // Form props
 type RegisterFormProps = {
-  setSuccess: Dispatch<SetStateAction<boolean>>;
-  setError: Dispatch<SetStateAction<string>>;
+  setMessage: Dispatch<SetStateAction<string>>;
+  setIsRegistered: Dispatch<SetStateAction<boolean>>;
 };
 
 const RegisterForm: React.FC<RegisterFormProps> = ({
-  setSuccess,
-  setError,
+  setIsRegistered,
+  setMessage,
 }) => {
   const initialValues = {
     username: '',
@@ -27,12 +27,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   const handleSubmitRegister = async (values: IUser) => {
     const result = await submitRegisterUser(values);
     if (typeof result === 'string') {
-      setSuccess(false);
-      setError(result);
+      setMessage(result);
     }
     if (typeof result === 'boolean') {
-      setError('');
-      setSuccess(true);
+      setMessage('Your account has been created');
+      setIsRegistered(true);
     }
   };
 
