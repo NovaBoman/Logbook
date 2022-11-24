@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { NextAuthOptions } from 'next-auth';
+import { NextAuthOptions, User } from 'next-auth';
 import bcrypt from 'bcrypt';
 import dbConnect from '../../../utils/mongoose.connect';
 import UserModel from '../../../models/UserModel';
@@ -43,14 +43,16 @@ const authOptions: NextAuthOptions = {
           if (!user) {
             return null;
           }
+          if (!user.roles.includes('user')) {
+            return null;
+          }
 
           const validPassword = await bcrypt.compare(password, user.password);
           if (!validPassword) {
             return null;
           }
-          return user;
+          return { name: user.username, roles: user.roles };
         } catch (e: any) {
-          console.error(e);
           return null;
         }
       },
@@ -59,12 +61,14 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.user = { username: user.username, roles: user.roles };
+        token.user = { name: user.name, roles: user.roles };
+        token.isAdmin = user.roles?.includes('admin');
       }
+
       return token;
     },
     async session({ session, token }) {
-      session.user = token.user;
+      session.user = token.user as User;
       return session;
     },
   },
