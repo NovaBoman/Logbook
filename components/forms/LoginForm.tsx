@@ -1,60 +1,54 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable arrow-body-style */
 /* eslint-disable indent */
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction } from 'react';
 import styles from './styles/Forms.module.css';
+import LoginSchema from './validation/login.validation';
 
 type LoginFormProps = {
-  setError: Dispatch<SetStateAction<string>>;
-  setSuccess: Dispatch<SetStateAction<boolean>>;
+  setMessage: Dispatch<SetStateAction<string>>;
 };
 
-const submitLogin = async (values: object) => {
-  try {
-    const result = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values),
-    }).then((res) => {
-      return res.status === 200
-        ? true
-        : res.status === 404 || res.status === 401 || res.status === 400
-        ? res.json()
-        : 'Login failed';
-    });
-    return result;
-  } catch (e: any) {
-    return console.error(e);
-  }
+type LoginFormValues = {
+  username: string;
+  password: string;
 };
 
-const LoginForm: React.FC<LoginFormProps> = ({ setError, setSuccess }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ setMessage }) => {
   const router = useRouter();
   const initialValues = { username: '', password: '' };
 
-  const handleSubmitLogin = async (values: object) => {
-    const result = await submitLogin(values);
-    setSuccess(false);
-    if (typeof result === 'string') {
-      setError(result);
+  const handleSubmitLogin = async (values: LoginFormValues) => {
+    const res = await signIn('credentials', {
+      username: values.username,
+      password: values.password,
+      redirect: false,
+    });
+    if (res?.status === 401) {
+      return setMessage('Invalid credentials');
     }
-    if (typeof result === 'boolean') {
-      setError('');
-      router.replace('/dashboard');
+    if (res?.ok) {
+      router.push('/dashboard');
     }
+    return res;
   };
 
   return (
     <div className={styles.container}>
       <Formik
         initialValues={initialValues}
+        validationSchema={LoginSchema}
+        validateOnChange={false}
+        validateOnBlur={false}
         onSubmit={(values, actions) => {
           handleSubmitLogin(values);
           actions.setSubmitting(false);
         }}
       >
-        <Form className={styles.form}>
+        <Form className={styles.form} onFocus={() => setMessage('')}>
           <label htmlFor="username">Username</label>
           <Field
             type="text"
@@ -62,6 +56,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setError, setSuccess }) => {
             name="username"
             placeholder="Username"
           />
+          <ErrorMessage name="username" />
           <label htmlFor="password">Password</label>
           <Field
             type="password"
@@ -69,6 +64,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setError, setSuccess }) => {
             name="password"
             placeholder="Password"
           />
+          <ErrorMessage name="password" />
           <button type="submit">Login</button>
         </Form>
       </Formik>

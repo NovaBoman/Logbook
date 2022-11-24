@@ -9,7 +9,6 @@ const RegisterSchema = Yup.object().shape({
   email: Yup.string().email('Please enter a valid email').required('Required'),
   password: Yup.string()
     .min(8, 'Password must be at least 8 characters')
-    .max(20, 'Password cannot be more than 20 characters')
     .required('Required')
     .matches(/^[a-zA-Z0-9]+$/, 'Cannot contain special characters or spaces'),
 });

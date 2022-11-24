@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { NextApiRequest, NextApiResponse } from 'next';
-import { register } from '../../../controllers/auth';
+import { register } from '../../../services/auth.service';
 
 export default async function handler(
   req: NextApiRequest,

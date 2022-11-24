@@ -1,12 +1,22 @@
+/* eslint-disable func-names */
+/* eslint-disable no-useless-escape */
+/* eslint-disable prefer-arrow-callback */
 // eslint-disable-next-line object-curly-newline
-import { models, model, Schema } from 'mongoose';
+import { models, model, Schema, ObjectId } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 export interface IUser {
+  _id?: ObjectId;
   username: string;
   email: string;
   password: string;
-  roles?: string[];
+  roles: string[];
+}
+
+export interface IUserFields {
+  username?: string;
+  email?: string;
+  password?: string;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -25,7 +35,6 @@ const UserSchema = new Schema<IUser>({
     type: String,
     required: [true, 'Email is required'],
     match: [
-      // eslint-disable-next-line no-useless-escape
       /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
       'Please enter a valid email address',
     ],
@@ -33,7 +42,7 @@ const UserSchema = new Schema<IUser>({
   },
   password: {
     type: String,
-    minlength: [8, 'Password must be between 8 and 20 characters'],
+    minlength: [8, 'Password must be a minimum of 8 characters'],
     required: [true, 'Password is required'],
   },
   roles: {
@@ -42,12 +51,24 @@ const UserSchema = new Schema<IUser>({
   },
 });
 
-// eslint-disable-next-line func-names
-UserSchema.pre('save', async function (next) {
+// Hashes password when saving new users (Mongoose Document middleware)
+UserSchema.pre(['save'], async function (next) {
   if (!this.isModified('password')) {
     return next();
   }
   this.password = bcrypt.hashSync(this.password, 10);
+  return next();
+});
+
+// Hashes updated passwords (Mongoose Query middleware)
+UserSchema.pre('findOneAndUpdate', async function (next) {
+  let pwd = this.get('password');
+  if (!pwd) {
+    return next();
+  }
+  pwd = bcrypt.hashSync(pwd, 10);
+
+  this.set('password', pwd);
   return next();
 });
 

@@ -1,6 +1,7 @@
 .container {
   width: 80vw;
   max-width: 300px;
+  margin: 0 auto;
   color: var(--light-text-color);
 }
 
@@ -20,4 +21,12 @@
   background-color: var(--secondary-color);
   border: 0;
   border-radius: 2px;
+}
+
+.form button:hover{
+  background-color: var(--contrast-color);
+}
+
+.userform {
+  color: var(--dark-text-color)
 }
