@@ -9,6 +9,7 @@ import styles from './Users.module.css';
 
 const UserList: React.FC = () => {
   const [users, setUsers] = useState<Array<IUser>>([]);
+  const [usersUpdated, setUsersUpdated] = useState(false);
   const [message, setMessage] = useState<string | null>('Loading users...');
   const [showEditForm, setShowEditForm] = useState(-1);
 
@@ -46,7 +47,7 @@ const UserList: React.FC = () => {
     getUsers();
   };
 
-  const handleEdit = (index: number) => {
+  const handleEditForm = (index: number) => {
     if (showEditForm !== -1) {
       setShowEditForm(-1);
       return;
@@ -59,6 +60,16 @@ const UserList: React.FC = () => {
     getUsers();
     setMessage(null);
   }, []);
+
+  useEffect(() => {
+    if (!usersUpdated) {
+      return;
+    }
+    getUsers();
+    setMessage(null);
+    setShowEditForm(-1);
+    setUsersUpdated(false);
+  }, [usersUpdated]);
 
   // Display message on loading or error
   if (message) {
@@ -84,7 +95,7 @@ const UserList: React.FC = () => {
 
               <div className={styles.buttons}>
                 <button
-                  onClick={() => handleEdit(index)}
+                  onClick={() => handleEditForm(index)}
                   className={styles.edit}
                 >
                   <Image
@@ -106,7 +117,11 @@ const UserList: React.FC = () => {
               </div>
               <div className={styles.form}>
                 {showEditForm === index && (
-                  <UserForm type={'edit'} user={user}></UserForm>
+                  <UserForm
+                    type={'edit'}
+                    user={user}
+                    setUsersUpdated={setUsersUpdated}
+                  ></UserForm>
                 )}
               </div>
             </div>
@@ -114,7 +129,10 @@ const UserList: React.FC = () => {
         ))}
       <div className={styles.createUserFormContainer}>
         <h2>Create new user</h2>
-        <UserForm type={'register'}></UserForm>
+        <UserForm
+          type={'register'}
+          setUsersUpdated={setUsersUpdated}
+        ></UserForm>
       </div>
     </div>
   );

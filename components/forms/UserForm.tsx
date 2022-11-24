@@ -2,7 +2,7 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable indent */
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { IUser } from '../../models/UserModel';
 import UserSchema from './validation/user.validation';
 import styles from './styles/Forms.module.css';
@@ -11,9 +11,10 @@ import { submitEditUser, submitRegisterUser } from './helpers/form.helpers';
 type UserFormProps = {
   user?: IUser;
   type: 'edit' | 'register';
+  setUsersUpdated: Dispatch<SetStateAction<boolean>>;
 };
 
-const UserForm: React.FC<UserFormProps> = ({ user, type }) => {
+const UserForm: React.FC<UserFormProps> = ({ user, type, setUsersUpdated }) => {
   const initialValues = {
     username: user?.username,
     email: user?.email,
@@ -28,6 +29,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, type }) => {
     if (type === 'register') {
       await submitRegisterUser(values as IUser);
     }
+    setUsersUpdated(true);
   };
   return (
     <div className={styles.container}>

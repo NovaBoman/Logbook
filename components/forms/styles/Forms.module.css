@@ -23,6 +23,10 @@
   border-radius: 2px;
 }
 
+.form button:hover{
+  background-color: var(--contrast-color);
+}
+
 .userform {
   color: var(--dark-text-color)
 }
