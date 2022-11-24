@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { INav } from '../component.interfaces';
 import styles from './styles/Nav.module.css';
 
@@ -49,6 +49,9 @@ const MainNav: React.FC<INav> = ({ className }) => {
           </li>
           <li>New log</li>
         </ul>
+      </section>
+      <section className={styles.logoutSection}>
+        <button onClick={() => signOut({ callbackUrl: '/' })}>Log out</button>
       </section>
     </nav>
   );
