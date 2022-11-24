@@ -25,21 +25,19 @@ const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials, req) {
-        const { username, password } = credentials as {
-          username: string;
-          password: string;
-        };
+        const name = credentials?.username;
+        const password = credentials?.password;
         try {
           if (
             credentials === undefined ||
-            username === undefined ||
+            name === undefined ||
             password === undefined
           ) {
             return null;
           }
 
           await dbConnect();
-          const user = await UserModel.findOne({ username });
+          const user = await UserModel.findOne({ username: name });
           if (!user) {
             return null;
           }
@@ -51,7 +49,7 @@ const authOptions: NextAuthOptions = {
           if (!validPassword) {
             return null;
           }
-          return { name: user.username, roles: user.roles };
+          return { name: user.username, roles: user.roles } as User;
         } catch (e: any) {
           return null;
         }
