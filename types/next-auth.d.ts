@@ -8,4 +8,9 @@ declare module 'next-auth' {
       roles?: Array<string> | null | undefined;
     };
   }
+
+  interface User {
+    name?: string | null | undefined;
+    roles?: Array<string> | null | undefined;
+  }
 }
