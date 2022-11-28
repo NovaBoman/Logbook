@@ -2,12 +2,13 @@
 /* eslint-disable func-names */
 /* eslint-disable prefer-arrow-callback */
 import { ObjectId } from 'mongodb';
-import { models, model, Schema, Date } from 'mongoose';
+import { models, model, Schema } from 'mongoose';
 
 export interface ILog {
   _id?: ObjectId;
   user: string;
   date: Date;
+  type: string;
   freefall: number;
   altitude: number;
   groupCount: number;
@@ -21,6 +22,7 @@ export interface ILog {
 const LogSchema = new Schema<ILog>({
   user: { type: String, required: true },
   date: { type: Date, required: [true, 'Date is required'] },
+  type: { type: String },
   freefall: {
     type: Number,
     required: [true, 'Freefall time is required'],
@@ -37,7 +39,7 @@ const LogSchema = new Schema<ILog>({
 /*
  *  If no value is provided for time in freefall an estimated value
  *  is calculated based on the following assumptions:
- *  - An average speed of 200km/h or ~3333m/m
+ *  - An average speed of 200km/h or ~55m/s
  *  - A deployment altitude of 1000m
  */
 
@@ -47,7 +49,7 @@ LogSchema.pre(['save'], async function (next) {
   // "freefall" property has a value of 0 if no value is provi
   if (freefall === 0) {
     const altitude = this.get('altitude');
-    const calculatedFreefallTime = Math.fround((altitude - 1000) / 3333);
+    const calculatedFreefallTime = Math.round((altitude - 1000) / 55);
     this.set('freefall', calculatedFreefallTime);
   }
   return next();
