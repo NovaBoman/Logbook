@@ -1,4 +1,5 @@
 import LogList from '../logs/LogList';
+import NewLog from '../logs/NewLog';
 import UserList from '../users/UserList';
 
 export const useContentSwitch = (url: string) => {
@@ -7,6 +8,8 @@ export const useContentSwitch = (url: string) => {
       return <UserList />;
     case '/dashboard/logs':
       return <LogList />;
+    case '/dashboard/logs/new':
+      return <NewLog />;
     default:
       return (
         <>

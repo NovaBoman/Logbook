@@ -47,7 +47,17 @@ const MainNav: React.FC<INav> = ({ className }) => {
               <li>2020</li>
             </ul>
           </li>
-          <li>New log</li>
+          <li>
+            {' '}
+            <Link
+              href={{
+                pathname: '/dashboard',
+              }}
+              as={'dashboard/logs/new'}
+            >
+              New log
+            </Link>
+          </li>
         </ul>
       </section>
       <section className={styles.logoutSection}>

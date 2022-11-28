@@ -14,6 +14,11 @@ const nextConfig = {
         destination: '/dashboard',
         permanent: true,
       },
+      {
+        source: '/dashboard/logs/new',
+        destination: '/dashboard',
+        permanent: true,
+      },
     ];
   },
 };
