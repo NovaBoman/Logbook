@@ -3,6 +3,7 @@
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-confusing-arrow */
 import { ObjectId } from 'mongoose';
+import { ILog } from '../../../models/LogModel';
 import { IUser } from '../../../models/UserModel';
 import { BASE_URL } from '../../../utils/constants';
 
@@ -44,3 +45,17 @@ export const submitEditUser = async (
     return console.error(e);
   }
 };
+
+export const submitAddLog = async (values: ILog) => {
+  try {
+    return await fetch('/api/logs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values),
+    }).then((res) => res);
+  } catch (e: any) {
+    return console.error(e);
+  }
+};
+
+export const submitEditLog = async () => {};
