@@ -6,7 +6,12 @@ import { Formik, Form, Field } from 'formik';
 import React, { Dispatch, SetStateAction } from 'react';
 import { useSession } from 'next-auth/react';
 import styles from './styles/Forms.module.css';
-import { submitAddLog, submitEditLog } from './helpers/form.helpers';
+import {
+  dateToValidFormat,
+  newDateWithFormat,
+  submitAddLog,
+  submitEditLog,
+} from './helpers/form.helpers';
 import { ILog } from '../../models/LogModel';
 
 const types = [
@@ -33,29 +38,18 @@ type LogFormProps = {
 const LogForm: React.FC<LogFormProps> = ({ log, type, setLogsUpdated }) => {
   const session = useSession();
   const user = session.data?.user.name;
-
-  /*
-   *  The property "type" is only used to control inputs and to be able to
-   *  store values from different types of input in the same array when submitting.
-   */
   const initialValues = {
-    date:
-      log?.date ||
-      new Date().toLocaleDateString('sv-SE', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-      }),
     user: log?.user || user,
-    groupCount: log?.groupCount || 0,
+    date: log?.date ? dateToValidFormat(log.date) : newDateWithFormat(),
+    type: log?.type || '',
     freefall: log?.freefall || 0,
+    groupCount: log?.groupCount || 0,
     altitude: log?.altitude || 4000,
     location: log?.location,
     aircraft: log?.aircraft,
     canopy: log?.canopy,
     comment: log?.comment,
     tags: log?.tags || [],
-    type: '',
   };
 
   const handleSubmit = async (values: ILog | object) => {
@@ -116,8 +110,8 @@ const LogForm: React.FC<LogFormProps> = ({ log, type, setLogsUpdated }) => {
               })}
             </Field>
 
-            <label htmlFor="freefall">Freefall (min)</label>
-            <Field type="number" min="0" max="3" step="0.5" name="freefall" />
+            <label htmlFor="freefall">Freefall (seconds)</label>
+            <Field type="number" min="0" max="180" name="freefall" />
             <label htmlFor="groupCount">
               Group count
               <Field type="number" min="0" name="groupCount" />

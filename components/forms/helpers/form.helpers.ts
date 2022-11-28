@@ -7,6 +7,7 @@ import { ILog } from '../../../models/LogModel';
 import { IUser } from '../../../models/UserModel';
 import { BASE_URL } from '../../../utils/constants';
 
+// Submit helpers
 export const submitRegisterUser = async (values: IUser) => {
   try {
     return await fetch('/api/auth/register', {
@@ -59,3 +60,23 @@ export const submitAddLog = async (values: ILog) => {
 };
 
 export const submitEditLog = async () => {};
+
+// Date helpers
+
+export const newDateWithFormat = () => {
+  const date = new Date().toLocaleDateString('sv-SE', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+  return date;
+};
+
+export const dateToValidFormat = (date: Date) => {
+  if (date === undefined) {
+    return undefined;
+  }
+  const dateString = JSON.stringify(date);
+  const validDate = dateString.substring(1, 11);
+  return validDate;
+};
