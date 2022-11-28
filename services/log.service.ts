@@ -12,3 +12,17 @@ export const createLog = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(500).json("Couldn't create log");
   }
 };
+
+export const getUserLogs = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
+  try {
+    await dbConnect();
+    const logs = await LogModel.find({ user: req.query.user });
+    return res.status(201).json(logs);
+  } catch (e: any) {
+    console.log(e);
+    return res.status(500).json("Couldn't get logs");
+  }
+};
