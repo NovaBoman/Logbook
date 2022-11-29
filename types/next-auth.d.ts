@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import NextAuth from 'next-auth';
+import NextAuth, { User } from 'next-auth';
 
 declare module 'next-auth' {
   interface Session {
@@ -12,5 +12,12 @@ declare module 'next-auth' {
   interface User {
     name?: string | null | undefined;
     roles?: Array<string> | null | undefined;
+  }
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    isAdmin: boolean;
+    user: User;
   }
 }
