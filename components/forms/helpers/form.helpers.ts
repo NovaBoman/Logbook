@@ -5,7 +5,6 @@
 import { ObjectId } from 'mongoose';
 import { ILog } from '../../../models/LogModel';
 import { IUser } from '../../../models/UserModel';
-import { BASE_URL } from '../../../utils/constants';
 
 // Submit helpers
 export const submitRegisterUser = async (values: IUser) => {
@@ -31,7 +30,7 @@ export const submitEditUser = async (
   values: object
 ) => {
   try {
-    return await fetch(`${BASE_URL}/api/users/${userId}`, {
+    return await fetch(`/api/users/${userId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
@@ -59,7 +58,26 @@ export const submitAddLog = async (values: ILog) => {
   }
 };
 
-export const submitEditLog = async () => {};
+export const submitEditLog = async (
+  logId: ObjectId | undefined,
+  values: object
+) => {
+  try {
+    return await fetch(`/api/logs/${logId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values),
+    }).then((res) =>
+      res.status === 201
+        ? true
+        : res.status === 404
+        ? res.json()
+        : "Couldn't update log"
+    );
+  } catch (e: any) {
+    return console.error(e);
+  }
+};
 
 // Date helpers
 

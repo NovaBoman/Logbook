@@ -54,7 +54,7 @@ const LogForm: React.FC<LogFormProps> = ({ log, type, setLogsUpdated }) => {
 
   const handleSubmit = async (values: ILog | object) => {
     if (type === 'edit') {
-      await submitEditLog();
+      await submitEditLog(log?._id, values);
     }
     if (type === 'add') {
       await submitAddLog(values as ILog);
