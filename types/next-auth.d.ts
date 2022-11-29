@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import NextAuth, { User } from 'next-auth';
 
