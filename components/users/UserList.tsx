@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { IUser } from '../../models/UserModel';
 import UserForm from '../forms/UserForm';
-import styles from './Users.module.css';
+import styles from './styles/Users.module.css';
 
 const UserList: React.FC = () => {
   const [users, setUsers] = useState<Array<IUser>>([]);
