@@ -1,8 +1,7 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable func-names */
 /* eslint-disable prefer-arrow-callback */
-import { ObjectId } from 'mongodb';
-import { models, model, Schema } from 'mongoose';
+import { models, model, Schema, ObjectId } from 'mongoose';
 
 export interface ILog {
   _id?: ObjectId;
@@ -12,6 +11,20 @@ export interface ILog {
   freefall: number;
   altitude: number;
   groupCount: number;
+  location?: string;
+  aircraft?: string;
+  canopy?: string;
+  comment?: string;
+  tags?: string[];
+}
+
+export interface ILogFields {
+  user: string;
+  date: Date;
+  type?: string;
+  freefall?: number;
+  altitude: number;
+  groupCount?: number;
   location?: string;
   aircraft?: string;
   canopy?: string;
@@ -56,6 +69,12 @@ LogSchema.pre(['save'], async function (next) {
 });
 
 LogSchema.pre('findOneAndUpdate', async function (next) {
+  const freefall = this.get('freefall');
+  if (freefall === 0) {
+    const altitude = this.get('altitude');
+    const calculatedFreefallTime = Math.round((altitude - 1000) / 55);
+    this.set('freefall', calculatedFreefallTime);
+  }
   return next();
 });
 
