@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { IUser } from '../../models/UserModel';
-import { BASE_URL } from '../../utils/constants';
 import UserForm from '../forms/UserForm';
 import styles from './Users.module.css';
 
@@ -16,7 +15,7 @@ const UserList: React.FC = () => {
   // Get users
   const getUsers = async () => {
     try {
-      await fetch(`${BASE_URL}/api/users`)
+      await fetch('/api/users')
         .then((res) => res.json())
         .then((userData) => {
           // If the collection is empty:
