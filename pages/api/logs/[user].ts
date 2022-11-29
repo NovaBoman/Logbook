@@ -9,10 +9,10 @@ export default async function handler(
   const token = await getToken({ req });
   if (req.method === 'GET') {
     try {
-      if (!token || !token?.user) {
+      if (!token || !token?.user.name) {
         return res.status(401).json('Unauthorized');
       }
-      return await getUserLogs(req, res);
+      return await getUserLogs(req, res, token.user.name);
     } catch (e: any) {
       return res.status(500).json("Couldn't process request");
     }

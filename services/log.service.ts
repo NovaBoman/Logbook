@@ -15,11 +15,12 @@ export const createLog = async (req: NextApiRequest, res: NextApiResponse) => {
 
 export const getUserLogs = async (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
+  username: string
 ) => {
   try {
     await dbConnect();
-    const logs = await LogModel.find({ user: req.query.user });
+    const logs = await LogModel.find({ user: username });
     return res.status(201).json(logs);
   } catch (e: any) {
     console.log(e);
