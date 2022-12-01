@@ -91,7 +91,6 @@ const LogForm: React.FC<LogFormProps> = ({ log, type, setLogsUpdated }) => {
             <fieldset
               disabled={isDisabled}
               onClick={() => setIsDisabled(false)}
-              onBlur={() => setIsDisabled(true)}
             >
               {/* The initial value is todays date so logs cannot be created for future jumps */}
               <Field
