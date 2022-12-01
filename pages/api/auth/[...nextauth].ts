@@ -50,7 +50,7 @@ const authOptions: NextAuthOptions = {
           if (!validPassword) {
             return null;
           }
-          return { name: user.username, roles: user.roles };
+          return { name: user.username, roles: user.roles } as User;
         } catch (e: any) {
           return null;
         }
@@ -67,7 +67,7 @@ const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      session.user = token.user;
+      session.user = token.user as User;
       return session;
     },
   },

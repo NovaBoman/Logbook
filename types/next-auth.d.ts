@@ -10,7 +10,7 @@ declare module 'next-auth' {
     };
   }
 
-  interface User {
+  interface DefaultUser {
     name?: string | null | undefined;
     roles?: Array<string> | null | undefined;
   }
