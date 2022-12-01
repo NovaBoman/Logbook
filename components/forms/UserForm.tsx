@@ -61,7 +61,9 @@ const UserForm: React.FC<UserFormProps> = ({ user, type, setUsersUpdated }) => {
               <Field type="checkbox" value="admin" name="roles" />
             </label>
           </div>
-          <button type="submit">Save</button>
+          <button className={styles.formButton} type="submit">
+            Save
+          </button>
         </Form>
       </Formik>
     </div>
