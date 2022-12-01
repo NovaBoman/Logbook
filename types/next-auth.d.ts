@@ -11,6 +11,7 @@ declare module 'next-auth' {
   }
 
   interface DefaultUser {
+    id?: any;
     name?: string | null | undefined;
     roles?: Array<string> | null | undefined;
   }
