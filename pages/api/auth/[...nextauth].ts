@@ -1,3 +1,4 @@
+/* eslint-disable no-unneeded-ternary */
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import NextAuth from 'next-auth/next';
@@ -49,7 +50,7 @@ const authOptions: NextAuthOptions = {
           if (!validPassword) {
             return null;
           }
-          return { name: user.username, roles: user.roles } as User;
+          return { name: user.username, roles: user.roles };
         } catch (e: any) {
           return null;
         }
@@ -60,13 +61,13 @@ const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.user = { name: user.name, roles: user.roles };
-        token.isAdmin = user.roles?.includes('admin');
+        token.isAdmin = user.roles?.includes('admin') ? true : false;
       }
 
       return token;
     },
     async session({ session, token }) {
-      session.user = token.user as User;
+      session.user = token.user;
       return session;
     },
   },
