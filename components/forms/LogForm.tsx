@@ -135,11 +135,7 @@ const LogForm: React.FC<LogFormProps> = ({ log, type, setLogsUpdated }) => {
 
               <label htmlFor="freefall">
                 Freefall
-                {isDisabled ? (
-                  <p>{log?.freefall}sec</p>
-                ) : (
-                  <Field type="number" min="0" max="180" name="freefall" />
-                )}
+                <Field type="number" min="0" max="180" name="freefall" />
               </label>
               <label htmlFor="groupCount">
                 Group count
