@@ -217,7 +217,7 @@ const LogForm: React.FC<LogFormProps> = ({ log, type, setLogsUpdated }) => {
                   <button
                     className={styles.logformSmallButton}
                     type={'button'}
-                    onClick={() => handleSubmit(values)}
+                    onClick={() => handleSubmit(values.values)}
                   >
                     Save
                   </button>
