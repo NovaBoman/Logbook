@@ -36,28 +36,29 @@ const LogList: React.FC = () => {
   };
 
   // Filter logs by tags
-  const applyTagFilter = (items: Array<any>, filters: string[]) =>
+  const applyTagFilter = (items: ILog[], filters: string[]) =>
     items.filter((item) =>
-      filters.every((filter) => item.tags.includes(filter))
+      filters.every((filter) => item?.tags?.includes(filter))
     );
 
   // Filter logs by string/type
-  const applyTypeFilter = (items: Array<any>, filter: string) =>
+  const applyTypeFilter = (items: ILog[], filter: string) =>
     items.filter((item) => item.type === filter);
 
   // Apply filters before showing logs
   const applyFilters = (
-    items: any[],
+    items: ILog[],
     stringFilter?: string,
     arrayFilter?: string[]
   ) => {
-    let filteredItems = items;
+    let filteredItems = [...items];
     if (stringFilter) {
       filteredItems = applyTypeFilter(filteredItems, stringFilter);
     }
     if (arrayFilter) {
       filteredItems = applyTagFilter(filteredItems, arrayFilter);
     }
+
     return filteredItems;
   };
 
@@ -103,9 +104,9 @@ const LogList: React.FC = () => {
         setTypeFilter={setTypeFilter}
       ></FilterInputs>
       {logList &&
-        logList.map((log, index) => (
+        logList.map((log) => (
           <>
-            <div key={index} className={styles.grid}>
+            <div key={JSON.stringify(log._id)} className={styles.grid}>
               <div className={styles.form}>
                 <LogForm
                   type={'edit'}
