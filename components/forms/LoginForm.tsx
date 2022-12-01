@@ -65,7 +65,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ setMessage }) => {
             placeholder="Password"
           />
           <ErrorMessage name="password" />
-          <button type="submit">Login</button>
+          <button className={styles.formButton} type="submit">
+            Login
+          </button>
         </Form>
       </Formik>
     </div>

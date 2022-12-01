@@ -8,5 +8,5 @@ export default withAuth(function middleware(req: NextRequest) {
 });
 
 export const config = {
-  matcher: ['/dashboard', '/api/users'],
+  matcher: ['/dashboard', '/api/users', '/api/logs'],
 };

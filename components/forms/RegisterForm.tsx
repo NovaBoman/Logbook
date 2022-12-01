@@ -72,7 +72,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               placeholder="Password"
             />
             <ErrorMessage name="password" />
-            <button type="submit">Register</button>
+            <button className={styles.formButton} type="submit">
+              Register
+            </button>
           </Form>
         )}
       </Formik>
