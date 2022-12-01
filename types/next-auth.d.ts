@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import NextAuth, { User } from 'next-auth';
+import NextAuth, { DefaultUser } from 'next-auth';
 
 declare module 'next-auth' {
   interface Session {
@@ -19,6 +19,6 @@ declare module 'next-auth' {
 declare module 'next-auth/jwt' {
   interface JWT {
     isAdmin: boolean;
-    user: User;
+    user: DefaultUser;
   }
 }
