@@ -1,99 +1,237 @@
+/*** General form styles styles ***/
 .container {
-  width: 80vw;
-  max-width: 300px;
-  margin: 0 auto;
+  width: 90%;
+  margin: 2rem auto;
+  padding: 2rem;
   color: var(--light-text-color);
 }
 
-.logContainer {
-  width: 90vw;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
 .form {
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
 
 .form input,
+.form select,
 .formButton {
   width: 100%;
   margin: 1rem auto;
   padding: 1rem;
 }
 
-.formButton {
-  background-color: var(--secondary-color);
-  border: 0;
-  border-radius: 2px;
-}
-
-.formButton:hover{
-  background-color: var(--contrast-color);
-}
-
-.userform {
-  color: var(--dark-text-color);
-}
-
-.logform {
-  display: flex;
-  flex-direction: column;
-  color: var(--dark-text-color);
-}
-
-.logform fieldset {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ddd;
-   font-weight: bold;
-}
-.logform .logformDate  {
-width: 30%
-  
-}
-
-.logform label {
-  width: fit-content;
-  display: flex;
-  align-items: center;
-  margin: 1rem;
-  
-}
-.logform input {
-  margin: 1rem;
-  padding: 0;
-  flex: 1;
-}
-
-.logform select, 
-.logform number {
-  margin: 0 0 0 1rem;
-}
-
-.logform fieldset:disabled input,
-.logform fieldset:disabled select  {
+.formButton{
+  border-radius: 3px;
+  border: none;
   font-weight: bold;
   color: var(--dark-text-color);
-  background: none;
-  border: 1.4px solid var(--light-text-color)
-  
-}
-
-.logform .logformSmallButton button {
-  width: 50%;
   background-color: var(--secondary-color);
-  border: 0;
-  border-radius: 2px;
 }
 
+.formButton:hover {
+  background-color: var(--contrast-color);
+  color: var(--light-text-color);
+}
+
+
+/*** Dashboard form styles (UserForm and LogForm) ***/
+
+.dashboardForm {
+  max-width: 600px;
+  color: var(--dark-text-color);
+}
+
+.dashboardForm h3 {
+  width: 100%;
+  margin: 2rem 0 0 0;
+  font-size: 1.4rem;
+}
+
+.dashboardForm input,
+.dashboardForm select {
+  margin: 1rem 1rem 1rem 0;
+  font-family: inherit;
+  padding: 0.5rem;
+}
+.dashboardForm .formButton {
+ width: 50%;
+ text-align: center;
+}
+
+.dashboardForm .smallButton {
+  display: inline-block;
+  width: fit-content;
+  margin: 1rem;
+  border: none;
+  background: none;
+  font-weight: bold;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+/*** LogForm ***/
+
+.logformContainer {
+  padding: 0;
+}
+
+/* LogForm fieldset grid */
+.dashboardForm fieldset {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-areas:
+    'date type altitude'
+    'location freefall group'
+    'aircraft canopy canopy'
+    'comment comment comment'
+    'acc acc acc'
+    'other other other'
+    'buttons buttons buttons';
+  border: 2px solid var(--tag-color);
+  width: 100%;
+  padding: 2rem;
+  border-radius: 3px;
+  overflow: hidden;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+/* grid areas */
+.date {
+  composes: dateArea from './fieldset.grid.css';
+}
+.location {
+  composes: locationArea from './fieldset.grid.css';
+}
+.group {
+  composes: groupArea from './fieldset.grid.css';
+}
+.type {
+  composes: typeArea from './fieldset.grid.css';
+}
+.altitude {
+  composes: altitudeArea from './fieldset.grid.css';
+}
+.freefall {
+  composes: freefallArea from './fieldset.grid.css';
+}
+.aircraft {
+  composes: aircraftArea from './fieldset.grid.css';
+}
+.canopy {
+  composes: canopyArea from './fieldset.grid.css';
+}
+.comment {
+  composes: commentArea from './fieldset.grid.css';
+}
+.accuracy {
+  composes: accuracyArea from './fieldset.grid.css';
+}
+.other {
+  composes: otherArea from './fieldset.grid.css';
+}
+.buttons{
+  composes: buttonsArea from './fieldset.grid.css';
+}
+
+.date,
+.location,
+.group,
+.type,
+.altitude,
+.freefall,
+.aircraft,
+.canopy,
+.comment {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.date input {
+  font-weight: bold;
+}
+
+.buttonContainer,
+.buttonsContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+/*** Pseudo styles ***/
+
+.dashboardForm fieldset:enabled {
+  border-color: var(--contrast-color);
+}
+
+.dashboardForm input:enabled,
+.dashboardForm select:enabled {
+  max-width: fit-content;
+  border: none;
+  border-radius: 3px;
+  background: none;
+}
+
+.dashboardForm .comment input:enabled{
+  max-width: none;
+}
+
+.dashboardForm input:disabled,
+.dashboardForm select:disabled {
+  background: none;
+  border: none;
+  color: var(--dark-text-color);
+}
+
+.dashboardForm select:disabled {
+  opacity: 100;
+  appearance: none;
+}
+
+.dashboardForm input:focus,
+.dashboardForm select:focus {
+  outline-color: var(--contrast-color);
+  background-color: #ffffff;
+}
+
+/*** Custom checkbox styles ***/
 .checkboxContainer {
   display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 1rem 0;
 }
 
-.checkboxContainer label {
-  flex-grow: 1;
-  display: inline-flex;
+.checkboxContainer .checkboxWrapperLabel {
+  position: relative;
+  width: fit-content;
+  min-width: 5rem;
+  height: 2.5rem;
+  margin: 1rem 1rem 0 1rem;
+}
+
+.checkboxContainer .checkboxWrapperLabel span {
+  display: flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 1rem 0 1rem;
+  border: 2px solid var(--tag-color);
+  border-radius: 3px;
+  background-color: var(--light-text-color);
+  color: var(--tag-color);
+}
+
+.checkboxContainer .checkboxWrapperLabel input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkboxContainer .checkboxWrapperLabel input:checked ~ span {
+  border-color: var(--contrast-color);
+  color: var(--contrast-color);
 }

@@ -96,26 +96,23 @@ const LogList: React.FC = () => {
   // Apply filters (if any) and return list of logs
   const logList = applyFilters(logs, typeFilter, tagFilters);
   return (
-    <div className={styles.logList}>
-      <h2>List of logs</h2>
+    <div className={styles.loglist}>
+      <h2>Logs</h2>
+
       <FilterInputs
         arrayFilters={tagFilters}
         setTagFilters={setTagFilters}
         setTypeFilter={setTypeFilter}
       ></FilterInputs>
+
       {logList &&
         logList.map((log) => (
-          <>
-            <div key={JSON.stringify(log._id)} className={styles.grid}>
-              <div className={styles.form}>
-                <LogForm
-                  type={'edit'}
-                  log={log}
-                  setLogsUpdated={setLogsUpdated}
-                ></LogForm>
-              </div>
-            </div>
-          </>
+          <LogForm
+            key={JSON.stringify(log._id)}
+            type={'edit'}
+            log={log}
+            setLogsUpdated={setLogsUpdated}
+          ></LogForm>
         ))}
     </div>
   );
