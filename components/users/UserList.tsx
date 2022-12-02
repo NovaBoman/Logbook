@@ -83,7 +83,7 @@ const UserList: React.FC = () => {
 
   // Otherwise return list of users
   return (
-    <div className={styles.userList}>
+    <div className={styles.userlist}>
       <h2>List of users</h2>
       {users &&
         users.map((user, index) => (
