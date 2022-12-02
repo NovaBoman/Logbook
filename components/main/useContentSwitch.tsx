@@ -11,10 +11,6 @@ export const useContentSwitch = (url: string) => {
     case '/dashboard/logs/new':
       return <NewLog />;
     default:
-      return (
-        <>
-          <div>Nothing to show</div>
-        </>
-      );
+      return <NewLog />;
   }
 };
