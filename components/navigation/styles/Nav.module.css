@@ -15,7 +15,28 @@
   line-height: 0;
 }
 
-.logoutSection {
-  margin: 5rem 0 0 0;
+.mainNav ul {
+  font-weight: bold;
+  padding: 1rem;
+  list-style-type: none;
 }
+
+.mainNav li{
+  padding: 1rem 0 1rem 0;
+}
+
+.logoutSection {
+  display: flex;
+  margin: 2rem 0 0 0;
+}
+
+.logoutButton {
+  border: none;
+  background: none;
+  color: var(--dark-text-color);
+  font-weight: bold;
+ 
+}
+
+
 
