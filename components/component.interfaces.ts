@@ -3,7 +3,6 @@ export interface IGridElement {
 }
 export interface IHeader extends IGridElement {
   logoPath?: string;
-  heading: string;
 }
 
 export interface IMain extends IGridElement {}
