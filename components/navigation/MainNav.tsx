@@ -1,6 +1,7 @@
-import Link from 'next/link';
 import React from 'react';
 import { useSession, signOut } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { INav } from '../component.interfaces';
 import styles from './styles/Nav.module.css';
 
@@ -24,6 +25,16 @@ const MainNav: React.FC<INav> = ({ className }) => {
                 Manage users
               </Link>
             </li>
+            <li>
+              <Link
+                href={{
+                  pathname: '/dashboard',
+                }}
+                as={'dashboard/users'}
+              >
+                Create user
+              </Link>
+            </li>
           </ul>
         </section>
       )}
@@ -40,12 +51,6 @@ const MainNav: React.FC<INav> = ({ className }) => {
             >
               Logs
             </Link>
-
-            <ul>
-              <li>2022</li>
-              <li>2021</li>
-              <li>2020</li>
-            </ul>
           </li>
           <li>
             {' '}
@@ -61,7 +66,18 @@ const MainNav: React.FC<INav> = ({ className }) => {
         </ul>
       </section>
       <section className={styles.logoutSection}>
-        <button onClick={() => signOut({ callbackUrl: '/' })}>Log out</button>
+        <Image
+          alt="Log out"
+          width="20"
+          height="20"
+          src="/icons/logout.svg"
+        ></Image>
+        <button
+          className={styles.logoutButton}
+          onClick={() => signOut({ callbackUrl: '/' })}
+        >
+          Log out
+        </button>
       </section>
     </nav>
   );

@@ -1,8 +1,5 @@
-.container {
-  width: 90%;
-  margin: 2rem auto;
+.userlist {
   padding: 2rem;
-  color: var(--light-text-color);
 }
 
 

@@ -18,7 +18,7 @@ const Dashboard: NextPage = () => {
         <meta name="description" content="Logbook for skydivers" />
       </Head>
       <div className={styles.grid}>
-        <Header className={styles.header} heading={'Dashboard'} />
+        <Header className={styles.header} />
         <MainNav className={styles.nav} />
         <DashboardMain key={router.asPath} className={styles.main} />
         <footer className={styles.footer}></footer>

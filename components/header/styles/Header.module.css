@@ -1,18 +1,11 @@
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 2rem 3rem 1.2rem;
   color: var(--light-text-color);
 }
 
-.header h1 {
-    margin: 0 1.5rem 0 0;
-}
-
-
 .userWrapper {
-  flex-grow: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -20,17 +13,14 @@
   font-weight: bold;
 }
 
+.userWrapper h1 {
+  margin: 0 0 0 1rem;
+}
+
 .avatar {
-  margin: 0 0 0 1.5rem;
   min-width: 40px;
   min-height: 40px;
   border-radius: 50%;
   background-color: var(--light-text-color);
 }
 
-.usernameWrapper {
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* line-height: 0; */
-  margin: 0 0 0 2rem;
-}
