@@ -37,7 +37,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setMessage }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       <Formik
         initialValues={initialValues}
         validationSchema={LoginSchema}

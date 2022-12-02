@@ -1,0 +1,49 @@
+
+/*
+ | Grid template areas have to be defined outside css module 
+ | because the module automatically changes the class name. 
+*/
+
+.dateArea{
+    grid-area: date;
+}
+
+.locationArea{
+    grid-area: location;
+}
+
+.groupArea{
+    grid-area: group;
+}
+
+.typeArea{
+    grid-area: type;
+}
+.altitudeArea{
+    grid-area: altitude;
+}
+.freefallArea{
+    grid-area: freefall;
+}
+.aircraftArea{
+    grid-area: aircraft;
+}
+
+.canopyArea{
+    grid-area: canopy;
+}
+
+.commentArea{
+    grid-area: comment;
+}
+
+.accuracyArea{
+    grid-area: acc;
+}
+.otherArea{
+    grid-area: other;
+}
+
+.buttonsArea{
+    grid-area: buttons;
+}

@@ -66,7 +66,7 @@ const Home: NextPage = () => {
           </svg>
         </div>
 
-        <div className="form-container">
+        <div className={styles.formContainer}>
           {isRegistered ? (
             <>
               <h1>Login</h1>

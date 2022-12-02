@@ -41,7 +41,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, type, setUsersUpdated }) => {
           actions.setSubmitting(false);
         }}
       >
-        <Form className={`${styles.form} ${styles.userform}`}>
+        <Form className={`${styles.form} ${styles.dashboardForm}`}>
           <label htmlFor="username">Username</label>
           <Field type="text" name="username" />
           <ErrorMessage name="username" />
@@ -52,13 +52,23 @@ const UserForm: React.FC<UserFormProps> = ({ user, type, setUsersUpdated }) => {
           <Field type="password" name="password" />
           <ErrorMessage name="password" />
           <div className={styles.checkboxContainer}>
-            <label>
-              User
-              <Field type="checkbox" value="user" name="roles" />
+            <label className={styles.checkboxWrapperLabel}>
+              <Field
+                className={styles.checkbox}
+                type="checkbox"
+                value="user"
+                name="roles"
+              />
+              <span> User</span>
             </label>
-            <label>
-              Admin
-              <Field type="checkbox" value="admin" name="roles" />
+            <label className={styles.checkboxWrapperLabel}>
+              <Field
+                className={styles.checkbox}
+                type="checkbox"
+                value="admin"
+                name="roles"
+              />
+              <span>Admin</span>
             </label>
           </div>
           <button className={styles.formButton} type="submit">

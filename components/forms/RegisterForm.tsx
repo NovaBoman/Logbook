@@ -36,7 +36,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       <Formik
         initialValues={initialValues}
         validationSchema={RegisterSchema}

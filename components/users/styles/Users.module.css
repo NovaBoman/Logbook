@@ -1,6 +1,14 @@
+.container {
+  width: 90%;
+  margin: 2rem auto;
+  padding: 2rem;
+  color: var(--light-text-color);
+}
+
+
 .grid {
   margin: 1rem auto;
-  width: 90vw;
+  /* width: 90vw; */
   max-width: 600px;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
@@ -8,7 +16,13 @@
     'username email buttons'
     'form form form';
 
-  border: 1px solid black;
+   border: 2px solid var(--tag-color);
+  width: 100%;
+  padding: 2rem;
+  border-radius: 3px;
+  overflow: hidden;
+  font-weight: bold;
+  font-size: 1.4rem;
 }
 
 /* 'composes' adds grid-area property from /userList.grid.css */

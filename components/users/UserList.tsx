@@ -126,7 +126,7 @@ const UserList: React.FC = () => {
             </div>
           </>
         ))}
-      <div className={styles.createUserFormContainer}>
+      <div>
         <h2>Create new user</h2>
         <UserForm
           type={'register'}

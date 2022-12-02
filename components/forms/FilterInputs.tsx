@@ -1,6 +1,7 @@
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import { TYPES } from '../../utils/constants';
+import styles from './styles/Forms.module.css';
 
 interface FilterInputProps {
   arrayFilters: string[];
@@ -33,7 +34,7 @@ const FilterInputs: React.FC<FilterInputProps> = ({
 
   // *** RETURN *** //
   return (
-    <div>
+    <div className={styles.container}>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
@@ -42,48 +43,80 @@ const FilterInputs: React.FC<FilterInputProps> = ({
         }}
       >
         {(props) => (
-          <Form onChange={props.submitForm}>
-            <label htmlFor="type">
-              Type
-              <Field as="select" name="typeFilter">
-                <option value="">Choose type...</option>
-                {TYPES.map((t) => (
-                  <option key={t} value={t.toLowerCase()}>
-                    {t}
-                  </option>
-                ))}
-              </Field>
-            </label>
-            <div>
-              <label>
-                Accuracy 5m
-                <Field type="checkbox" value="5m" name="tagFilters" />
+          <Form
+            className={`${styles.form} ${styles.dashboardForm}`}
+            onChange={props.submitForm}
+          >
+            <h3>Type</h3>
+            <Field as="select" name="typeFilter">
+              <option value="">Choose type...</option>
+              {TYPES.map((t) => (
+                <option key={t} value={t.toLowerCase()}>
+                  {t}
+                </option>
+              ))}
+            </Field>
+
+            <div className={styles.checkboxContainer}>
+              <h3>Tags</h3>
+              <label className={styles.checkboxWrapperLabel}>
+                <Field
+                  className={styles.checkbox}
+                  type="checkbox"
+                  value="5m"
+                  name="tagFilters"
+                />
+                <span>5m</span>
               </label>
-              <label>
-                15m
-                <Field type="checkbox" value="15m" name="tagFilters" />
+              <label className={styles.checkboxWrapperLabel}>
+                <Field
+                  className={styles.checkbox}
+                  type="checkbox"
+                  value="15m"
+                  name="tagFilters"
+                />
+                <span>15m</span>
               </label>
-            </div>
-            <div>
-              <label>
-                Malfunction
-                <Field type="checkbox" value="malfunction" name="tagFilters" />
+              <label className={styles.checkboxWrapperLabel}>
+                <Field
+                  className={styles.checkbox}
+                  type="checkbox"
+                  value="malfunction"
+                  name="tagFilters"
+                />
+                <span>Malfunction</span>
               </label>
-              <label>
-                Cutaway
-                <Field type="checkbox" value="cutaway" name="tagFilters" />
+              <label className={styles.checkboxWrapperLabel}>
+                <Field
+                  className={styles.checkbox}
+                  type="checkbox"
+                  value="cutaway"
+                  name="tagFilters"
+                />
+                <span>Cutaway</span>
               </label>
-              <label>
-                Inhopp
-                <Field type="checkbox" value="inhopp" name="tagFilters" />
+              <label className={styles.checkboxWrapperLabel}>
+                <Field
+                  className={styles.checkbox}
+                  type="checkbox"
+                  value="inhopp"
+                  name="tagFilters"
+                />
+                <span>Inhopp</span>
               </label>
-              <label>
-                Landed out
-                <Field type="checkbox" value="offDZ" name="tagFilters" />
+              <label className={styles.checkboxWrapperLabel}>
+                <Field
+                  className={styles.checkbox}
+                  type="checkbox"
+                  value="offDZ"
+                  name="tagFilters"
+                />
+                <span>Landed out</span>
               </label>
             </div>
 
             <button
+              className={styles.smallButton}
               type="button"
               onClick={() => {
                 props.resetForm();

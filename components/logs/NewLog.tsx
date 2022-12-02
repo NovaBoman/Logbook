@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import LogForm from '../forms/LogForm';
+import logStyles from './styles/Logs.module.css';
+import formStyles from '../forms/styles/Forms.module.css';
 
 const NewLog: React.FC = () => {
   const [logsUpdated, setLogsUpdated] = useState(false);
   return (
-    <div>
+    <div className={logStyles.loglist}>
       {!logsUpdated ? (
         <div>
           <h2>Add new log</h2>
@@ -13,7 +15,13 @@ const NewLog: React.FC = () => {
       ) : (
         <div>
           <h2>Log added</h2>
-          <button onClick={() => setLogsUpdated(false)}>Add new log</button>
+
+          <button
+            className={formStyles.formButton}
+            onClick={() => setLogsUpdated(false)}
+          >
+            Add new log
+          </button>
         </div>
       )}
     </div>

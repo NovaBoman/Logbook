@@ -74,7 +74,7 @@ const LogForm: React.FC<LogFormProps> = ({ log, type, setLogsUpdated }) => {
   // *** RETURN *** //
 
   return (
-    <div className={styles.logContainer}>
+    <div className={`${styles.container} ${styles.logformContainer}`}>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
@@ -87,21 +87,34 @@ const LogForm: React.FC<LogFormProps> = ({ log, type, setLogsUpdated }) => {
         }}
       >
         {(values) => (
-          <Form className={`${styles.logform} ${styles.form}`}>
+          <Form className={`${styles.form} ${styles.dashboardForm}`}>
             <fieldset
+              className={styles.fieldsetGrid}
               disabled={isDisabled}
               onClick={() => setIsDisabled(false)}
             >
               {/* The initial value is todays date so logs cannot be created for future jumps */}
-              <Field
-                className={styles.logformDate}
-                type="date"
-                name="date"
-                max={initialValues.date}
-              />
 
-              <label htmlFor="type">
-                Type
+              <label className={styles.date} htmlFor="date">
+                Date:
+                <Field type="date" name="date" max={initialValues.date} />
+              </label>
+              <label className={styles.location} htmlFor="location">
+                Location:
+                <Field type="text" name="location" placeholder="Add location" />
+              </label>
+              <label className={styles.group} htmlFor="groupCount">
+                Group #:
+                <Field
+                  type="number"
+                  min="0"
+                  name="groupCount"
+                  placeholder="nr"
+                />
+              </label>
+
+              <label className={styles.type} htmlFor="type">
+                Type:
                 <Field as="select" name="type">
                   <option value="" disabled>
                     Choose type...
@@ -116,13 +129,9 @@ const LogForm: React.FC<LogFormProps> = ({ log, type, setLogsUpdated }) => {
                 </Field>
               </label>
 
-              <label htmlFor="altitude">
-                Altitude
-                <Field
-                  as="select"
-                  name="altitude"
-                  placeholder="Choose altitude"
-                >
+              <label className={styles.altitude} htmlFor="altitude">
+                Altitude:
+                <Field as="select" name="altitude">
                   {ALTITUDES.map((a) => {
                     return (
                       <option key={a} value={a}>
@@ -133,101 +142,137 @@ const LogForm: React.FC<LogFormProps> = ({ log, type, setLogsUpdated }) => {
                 </Field>
               </label>
 
-              <label htmlFor="freefall">
-                Freefall
-                <Field type="number" min="0" max="180" name="freefall" />
-              </label>
-              <label htmlFor="groupCount">
-                Group count
-                <Field type="number" min="0" name="groupCount" />
-              </label>
-              <label htmlFor="location" placeholder="Add location">
-                Location
-                <Field type="text" name="location" />
-              </label>
-              <label htmlFor="aircraft">
-                Aircraft
-                <Field type="text" name="aircraft" />
-              </label>
-              <label htmlFor="canopy">
-                Canopy
-                <Field type="text" name="canopy" />
+              <label className={styles.freefall} htmlFor="freefall">
+                Freefall:
+                <Field
+                  type="number"
+                  min="0"
+                  max="180"
+                  name="freefall"
+                  placeholder="sec."
+                />
               </label>
 
-              <p>Accuracy</p>
-              <div className={styles.checkboxContainer}>
-                <label>
-                  5m
-                  <Field type="checkbox" value="5m" name="tags" />
-                </label>
-                <label>
-                  15m
-                  <Field type="checkbox" value="15m" name="tags" />
-                </label>
-              </div>
-              <p>Tags</p>
+              <label className={styles.aircraft} htmlFor="aircraft">
+                Aircraft:
+                <Field type="text" name="aircraft" placeholder="Add aircraft" />
+              </label>
+              <label className={styles.canopy} htmlFor="canopy">
+                Canopy:
+                <Field type="text" name="canopy" placeholder="Add canopy" />
+              </label>
 
-              <div className={styles.checkboxContainer}>
-                <label>
-                  Malfunction
-                  <Field type="checkbox" value="malfunction" name="tags" />
-                </label>
-                <label>
-                  Cutaway
-                  <Field type="checkbox" value="cutaway" name="tags" />
-                </label>
-                <label>
-                  Inhopp
-                  <Field type="checkbox" value="inhopp" name="tags" />
-                </label>
-                <label>
-                  Landed out
-                  <Field type="checkbox" value="offDZ" name="tags" />
-                </label>
-              </div>
+              <label className={styles.comment} htmlFor="comment">
+                Comment:
+                <Field type="text" name="comment" placeholder="Add comment" />
+              </label>
 
-              <label htmlFor="comment">Comment</label>
-              <Field type="" name="comment" />
-              {type === 'add' && (
-                <button
-                  className={styles.formButton}
-                  type="submit"
-                  hidden={isDisabled}
-                >
-                  Save
-                </button>
-              )}
-            </fieldset>
+              <section className={styles.accuracy}>
+                <h3>Accuracy</h3>
+                <div className={styles.checkboxContainer}>
+                  <label className={styles.checkboxWrapperLabel}>
+                    <Field
+                      className={styles.checkbox}
+                      type="checkbox"
+                      value="5m"
+                      name="tags"
+                    />
+                    <span>5m</span>
+                  </label>
+                  <label className={styles.checkboxWrapperLabel}>
+                    <Field
+                      className={styles.checkbox}
+                      type="checkbox"
+                      value="15m"
+                      name="tags"
+                    />
+                    <span>15m</span>
+                  </label>
+                </div>
+              </section>
 
-            {type === 'edit' && (
-              <div>
-                {isDisabled ? (
-                  <button
-                    className={styles.logformSmallButton}
-                    type={'button'}
-                    onClick={() => setIsDisabled(false)}
-                  >
-                    Edit
-                  </button>
-                ) : (
-                  <button
-                    className={styles.logformSmallButton}
-                    type={'button'}
-                    onClick={() => handleSubmit(values.values)}
-                  >
-                    Save
-                  </button>
+              <section className={styles.other}>
+                <h3>Other</h3>
+                <div className={styles.checkboxContainer}>
+                  <label className={styles.checkboxWrapperLabel}>
+                    <Field
+                      className={styles.checkbox}
+                      type="checkbox"
+                      value="malfunction"
+                      name="tags"
+                    />
+                    <span>Malfunction</span>
+                  </label>
+                  <label className={styles.checkboxWrapperLabel}>
+                    <Field
+                      className={styles.checkbox}
+                      type="checkbox"
+                      value="cutaway"
+                      name="tags"
+                    />
+                    <span>Cutaway</span>
+                  </label>
+                  <label className={styles.checkboxWrapperLabel}>
+                    <Field
+                      className={styles.checkbox}
+                      type="checkbox"
+                      value="inhopp"
+                      name="tags"
+                    />
+                    <span>Inhopp</span>
+                  </label>
+                  <label className={styles.checkboxWrapperLabel}>
+                    <Field
+                      className={styles.checkbox}
+                      type="checkbox"
+                      value="offDZ"
+                      name="tags"
+                    />
+                    <span>Landed out</span>
+                  </label>
+                </div>
+              </section>
+              <div className={styles.buttons}>
+                {type === 'add' && (
+                  <div className={styles.buttonContainer}>
+                    <button
+                      className={styles.formButton}
+                      type="submit"
+                      hidden={isDisabled}
+                    >
+                      Save
+                    </button>
+                  </div>
                 )}
 
-                <button
-                  className={styles.logformSmallButton}
-                  type={'button'}
-                  onClick={() => handleDelete(initialValues?.logId)}
-                >
-                  Delete
-                </button>
+                {type === 'edit' && (
+                  <div className={styles.buttonsContainer}>
+                    {isDisabled ? (
+                      <p
+                        className={styles.smallButton}
+                        onClick={() => setIsDisabled(false)}
+                      >
+                        Edit
+                      </p>
+                    ) : (
+                      <p
+                        className={styles.smallButton}
+                        onClick={() => handleSubmit(values.values)}
+                      >
+                        Save
+                      </p>
+                    )}
+
+                    <p
+                      className={styles.smallButton}
+                      onClick={() => handleDelete(initialValues?.logId)}
+                    >
+                      Delete
+                    </p>
+                  </div>
+                )}
               </div>
-            )}
+            </fieldset>
           </Form>
         )}
       </Formik>
